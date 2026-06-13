@@ -29,20 +29,25 @@ palabra = input("palabra a invertir:")
 for letra in palabra:
     pila.push(letra)
 
-pila.show()
+#pila.show()
 
 def invertir(pila):
     aux = Stack()
+    aux2 = Stack()
+    x = pila.pop()
     while pila.size () > 0 :
-        aux.push(pila.pop())
+        aux.push(x)
+        aux2.push(x)
     
-    print("pila invertida")
-    aux.show()
+    while aux2.size() > 0 :
+        pila.push(aux2.pop())
     
-    while aux.size () > 0 :
-        pila.push(aux.pop())
+    return aux
 
-invertir(pila)
-
+invert  = invertir(pila)
+print("pila invertida:")
+invert.show()
+print("pila original")
+pila.show()
 
 
