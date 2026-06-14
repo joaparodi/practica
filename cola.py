@@ -1,0 +1,1 @@
+#1. Eliminar de una cola de caracteres todas las vocales que aparecen.
