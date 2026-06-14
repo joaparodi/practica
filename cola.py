@@ -7,28 +7,33 @@ from random import randint
 
 #1. Eliminar de una cola de caracteres todas las vocales que aparecen.
 
-cola = Queue()
+# cola = Queue()
 
 
-vocales =['a','e','i','o','u']
+# vocales =['a','e','i','o','u']
 
-for i in range(10):
-    cola.arrive(chr(randint(97,122)))
+# for i in range(10):
+#     cola.arrive(chr(randint(97,122)))
 
-print("cola con vocales:")
-cola.show()
+# print("cola con vocales:")
+# cola.show()
 
-def eleminar_v(cola : Queue,vocales : tuple):
-    colaaux = Queue()
-    while cola.size() > 0 :
-        x = cola.attention()
-        if x not in vocales:
-            colaaux.arrive(x)
+# def eleminar_v(cola : Queue,vocales : tuple):
+#     colaaux = Queue()
+#     while cola.size() > 0 :
+#         x = cola.attention()
+#         if x not in vocales:
+#             colaaux.arrive(x)
        
-    while colaaux.size() > 0:
-        cola.arrive(colaaux.attention())
+#     while colaaux.size() > 0:
+#         cola.arrive(colaaux.attention())
 
 
-print("cola sin vocales:")    
-eleminar_v(cola,vocales)
-cola.show()
+# print("cola sin vocales:")    
+# eleminar_v(cola,vocales)
+# cola.show()
+
+
+
+
+
