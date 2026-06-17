@@ -24,12 +24,12 @@ for i in range(10):
 
 pila = Stack()
 
-palabra = input("palabra a invertir:")
+#palabra = input("palabra a invertir:")
 
-for letra in palabra:
-    pila.push(letra)
+#for letra in palabra:
+#    pila.push(letra)
 
-pila.show()
+# pila.show()
 
 def invertir(pila):
     aux = Stack()
@@ -44,8 +44,56 @@ def invertir(pila):
     return aux
 
 invert  = invertir(pila)
-print("pila invertida:")
-invert.show()
+# print("pila invertida:")
+# invert.show()
 
 
 
+# 16. Se tienen dos pilas con personajes de Star Wars, en una los del episodio V de “The empire strikes back” y la otra los del episodio VII “The force awakens”. Desarrollar un algoritmo que
+
+# permita obtener la intersección de ambas pilas, es decir los personajes que aparecen en am-
+# bos episodios.
+
+
+pila = Stack()
+pilas_v = Stack()
+pilas_vii = Stack() 
+
+personajes_v = ["Luke Skywalker", "Darth Vader", "Han Solo", "Leia Organa", "Yoda"]
+for p in personajes_v:
+    pilas_v.push(p)
+
+print("personajes V de The empire strikes back")
+pilas_v.show()
+
+personajes_vii = ["Han Solo", "Leia Organa", "Rey", "Finn", "Luke Skywalker", "Kylo Ren"]
+for p in personajes_vii:
+    pilas_vii.push(p)
+
+print("personajes del episodio VII “The force awakens”.")
+pilas_vii.show()
+
+
+def p_ambos_epi(pilas_v, pilas_vii):
+    interseccion = Stack()
+    aux = Stack()
+    while pilas_v.size () > 0 :
+        x = pilas_v.pop()
+        encontrado = False
+        while pilas_vii.size () > 0 :
+            y = pilas_vii.pop()
+            if y == x:
+                encontrado = True
+            aux.push(y)
+        
+        while aux.size () > 0 :
+            pilas_vii.push(aux.pop())
+        
+        if encontrado:
+            interseccion.push(x)
+    return interseccion
+
+result = p_ambos_epi(pilas_v,pilas_vii)# cuando returno algun valor debo acordarme de porner una variable para guardar el resultado
+
+print("los personajes que aparece en ambos son:")
+result.show()
