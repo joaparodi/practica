@@ -35,16 +35,52 @@ def suma_entero(numm : int) -> int:
 #3. Implementar una función para calcular el producto de dos números enteros dados.
 # 2x3 = 2*2*2=6
 
-n1 = int(input("introduce el primer indice:"))
-n2 = int(input("introduce el numero por el cual va a multiplicar:"))
+# n1 = int(input("introduce el primer indice:"))
+# n2 = int(input("introduce el numero por el cual va a multiplicar:"))
 
 def produc(n1 : int , n2 : int)-> int:
     if n2 == 0:
         return 0
     else:
         return (n1 + produc(n1 , n2-1))# 2  2+2
+#
 
-produc(n1 , n2)
-print(produc(n1 ,n2))
+
+#4. Implementar una función para calcular la potencia dado dos números enteros, el primero representa la base y segundo el exponente.
+
+#2^2 = 2x2   2^3 = (2x2)x2
+
+# num1 = int(input("dar el valor del exponente:"))
+# num2 = int(input("ingrese la potencia del exponente:"))
+
+def potencia(num1 : int,num2 : int)-> int:
+    if num2 == 1:
+        return num1
+    else:
+        return num1 * potencia(num1 , num2-1)
+
+# potencia(num1,num2)
+# print(potencia(num1,num2))
+
+
+#5. Desarrollar una función que permita convertir un número romano en un número decimal.
+
+romano = input("ingrese el numero romaro :")
+
+def tranf_romano(romano):
+    valores = {'i': 1, 'v': 5, 'x': 10, 'l': 50, 'c': 100, 'd': 500, 'm': 1000}
+    i = 0
+    def convertir(i) :
+        if i >= len(romano):
+            return 0
+        if i + 1 < len(romano) and valores[romano[i]] < valores[romano[i + 1]]:
+            return valores[romano[i + 1]] - valores[romano[i]] + convertir(i + 2)
+        else:
+            return valores[romano[i]] + convertir(i + 1)
+    return convertir(0)
+
+tranf_romano(romano)
+print(tranf_romano(romano))
+
 
 
