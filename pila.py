@@ -132,8 +132,8 @@ def cargar(pila: Stack , datos_peliculas):
         x = pelicula(titulo,estudio,anio)
         pila.push(x)
 
-cargar(pila,datos_peliculas)
-pila.show()
+# cargar(pila,datos_peliculas)
+# pila.show()
 
 # a. mostrar los nombre películas estrenadas en el año 2014;
 
@@ -183,5 +183,169 @@ def peli_marvel(pila: Stack):
     while aux.size() > 0:
         pila.push(aux.pop())
 
-print("peliculas que marvel estudios estreno en 2016 :")
-peli_marvel(pila)
+# print("peliculas que marvel estudios estreno en 2016 :")
+# peli_marvel(pila)
+
+
+# 22. Se recuperaron las bitácoras de las naves del cazarrecompensas Boba Fett y Din Djarin (The Mandalorian), las cuales se almacenaban en una pila (en su correspondiente nave) en cada
+# misión de caza que emprendió, con la siguiente información: planeta visitado, a quien capturó,costo de la recompensa. Resolver las siguientes actividades:
+# a. mostrar los planetas visitados en el orden que hicieron las misiones cada uno de los cazzarrecompensas;
+# b. determinar cuántos créditos galácticos recaudo en total cada cazarrecompensas y de estos quien obtuvo mayor fortuna;
+# c. determinar el número de la misión –es decir su posición desde el fondo de la pila– en la que Boba Fett capturo a Han Solo, suponga que dicha misión está cargada;
+# d. indicar la cantidad de capturas realizadas por cada cazarrecompensas.
+
+
+
+class mision:
+    def __init__(self,planeta,capturado,recompensa):
+        self.planeta = planeta
+        self.capturado = capturado
+        self.recompensa = recompensa
+    
+    def __str__(self):
+        return f"planeta:{self.planeta}--capturado:{self.capturado}--recompensa{self.recompensa}"
+        
+        
+        
+pila_boba = Stack()
+pila_din = Stack()
+
+
+# Datos para Boba Fett
+datos_boba = [
+    ("Tatooine", "Jabba the Hutt", 500),
+    ("Bespin", "Han Solo", 5000),
+    ("Nal Hutta", "Cad Bane", 2000)
+]
+
+# Datos para Din Djarin
+datos_mando = [
+    ("Nevarro", "Mythrol", 100),
+    ("Arvala-7", "Grogu", 5000),
+    ("Trask", "Mon Calamari", 300)
+]
+
+def carga_boba(pila_boba: Stack,datos_boba):
+    for planeta,capturado,recompensa in datos_boba:
+        x = mision(planeta,capturado,recompensa)
+        pila_boba.push(x)
+
+carga_boba(pila_boba,datos_boba)
+print()
+print("pila de boba fett")
+print()
+pila_boba.show()
+
+
+def carga_din(pila_din : Stack , datos_mando):
+    for planeta,capturado,recompensa in datos_mando:
+        x = mision(planeta,capturado,recompensa)
+        pila_din.push(x)
+
+carga_din(pila_din,datos_mando)
+print()
+print("pila de Din Djarin:")
+print()
+pila_din.show()
+
+
+# a. mostrar los planetas visitados en el orden que hicieron las misiones cada uno de los cazzarrecompensas;
+print()
+print("planetas visitados por boba fett:")
+def visit_plan(pila: Stack):
+    aux = Stack()
+    while pila.size() > 0:
+        aux.push(pila.pop())
+    
+    while aux.size() > 0:
+        x = aux.pop()
+        print(x.planeta)
+        pila.push(x)
+
+print()
+visit_plan(pila_boba)
+print()
+print("planetas visitados por din:")
+visit_plan(pila_din)
+# pila_boba.show()
+
+
+# b. determinar cuántos créditos galácticos recaudo en total cada cazarrecompensas y de estos quien obtuvo mayor fortuna;
+
+def rcaudado(pila):
+    rec = 0
+    aux = Stack()
+    while pila.size() > 0 :
+        aux.push(pila.pop())
+        
+    
+    while aux.size() > 0 :
+        x = aux.pop()
+        rec += x.recompensa
+        pila.push(x)
+    return rec
+
+
+print()
+print("boba fett recaudo:")        
+print(rcaudado(pila_boba))
+
+
+print()
+print("din recaudo :")
+print(rcaudado(pila_din))
+if rcaudado(pila_boba) > rcaudado(pila_din):
+    print("Mayor fortuna: Boba Fett")
+elif rcaudado(pila_din) > rcaudado(pila_boba):
+    print("Mayor fortuna: Din Djarin")
+else:
+    print("Ambos recaudaron lo mismo.")
+
+
+# c. determinar el número de la misión es decir su posición desde el fondo de la pila en la que Boba Fett capturo a Han Solo, suponga que dicha misión está cargada;
+
+def cap_han(pila_boba):
+    aux_boba = Stack()
+    print("han solo fue capturado en la mision:")
+    while pila_boba.size() > 0 :
+        aux_boba.push(pila_boba.pop())
+    
+    for i in range(aux_boba.size()):
+        x = aux_boba.pop()
+        if x.capturado == "Han Solo":
+            print(i+1)
+        pila_boba.push(x)
+
+print()        
+cap_han(pila_boba)            
+
+# pila_boba.show()
+
+
+# d. indicar la cantidad de capturas realizadas por cada cazarrecompensas.
+
+def cant_capturas(pila):
+    contador = 0
+    aux = Stack()
+    while pila.size()> 0 :
+        aux.push(pila.pop())
+        
+    for i in range(aux.size()):
+        x = aux.pop()
+        if x.capturado != "":
+            contador += 1
+        pila.push(x)
+    return contador
+
+
+print()
+cant_capturas(pila_boba)
+print("la cantidad de capturas que realizo boba fett es de :")
+print(cant_capturas(pila_boba))
+
+print()
+
+print("la cantidad de capturas que tuvo Din es de :")
+print(cant_capturas(pila_din))
+
+
