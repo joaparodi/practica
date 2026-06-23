@@ -65,7 +65,7 @@ def potencia(num1 : int,num2 : int)-> int:
 
 #5. Desarrollar una función que permita convertir un número romano en un número decimal.
 
-romano = input("ingrese el numero romaro :")
+# romano = input("ingrese el numero romaro :")
 
 def tranf_romano(romano):
     valores = {'i': 1, 'v': 5, 'x': 10, 'l': 50, 'c': 100, 'd': 500, 'm': 1000}
@@ -79,8 +79,22 @@ def tranf_romano(romano):
             return valores[romano[i]] + convertir(i + 1)
     return convertir(0)
 
-tranf_romano(romano)
-print(tranf_romano(romano))
+# tranf_romano(romano)
+# print(tranf_romano(romano))
 
 
+
+#7. Desarrollar un algoritmo que permita calcular la siguiente serie:
+#1/n-1 + 1/n-1
+
+n = int(input("ingrese un numero:"))
+
+def serie_n(n):
+    if n == 1:
+        return 1
+    else:
+        return 1/n + serie_n(n-1)
+
+serie_n(n)
+print(serie_n(n))
 

@@ -230,11 +230,11 @@ def carga_boba(pila_boba: Stack,datos_boba):
         x = mision(planeta,capturado,recompensa)
         pila_boba.push(x)
 
-carga_boba(pila_boba,datos_boba)
-print()
-print("pila de boba fett")
-print()
-pila_boba.show()
+# carga_boba(pila_boba,datos_boba)
+# print()
+# print("pila de boba fett")
+# print()
+# pila_boba.show()
 
 
 def carga_din(pila_din : Stack , datos_mando):
@@ -242,16 +242,16 @@ def carga_din(pila_din : Stack , datos_mando):
         x = mision(planeta,capturado,recompensa)
         pila_din.push(x)
 
-carga_din(pila_din,datos_mando)
-print()
-print("pila de Din Djarin:")
-print()
-pila_din.show()
+# carga_din(pila_din,datos_mando)
+# print()
+# print("pila de Din Djarin:")
+# print()
+# pila_din.show()
 
 
 # a. mostrar los planetas visitados en el orden que hicieron las misiones cada uno de los cazzarrecompensas;
-print()
-print("planetas visitados por boba fett:")
+# print()
+# print("planetas visitados por boba fett:")
 def visit_plan(pila: Stack):
     aux = Stack()
     while pila.size() > 0:
@@ -262,12 +262,12 @@ def visit_plan(pila: Stack):
         print(x.planeta)
         pila.push(x)
 
-print()
-visit_plan(pila_boba)
-print()
-print("planetas visitados por din:")
-visit_plan(pila_din)
-# pila_boba.show()
+# print()
+# visit_plan(pila_boba)
+# print()
+# print("planetas visitados por din:")
+# visit_plan(pila_din)
+# # pila_boba.show()
 
 
 # b. determinar cuántos créditos galácticos recaudo en total cada cazarrecompensas y de estos quien obtuvo mayor fortuna;
@@ -286,20 +286,20 @@ def rcaudado(pila):
     return rec
 
 
-print()
-print("boba fett recaudo:")        
-print(rcaudado(pila_boba))
+# print()
+# print("boba fett recaudo:")        
+# print(rcaudado(pila_boba))
 
 
-print()
-print("din recaudo :")
-print(rcaudado(pila_din))
-if rcaudado(pila_boba) > rcaudado(pila_din):
-    print("Mayor fortuna: Boba Fett")
-elif rcaudado(pila_din) > rcaudado(pila_boba):
-    print("Mayor fortuna: Din Djarin")
-else:
-    print("Ambos recaudaron lo mismo.")
+# print()
+# print("din recaudo :")
+# print(rcaudado(pila_din))
+# if rcaudado(pila_boba) > rcaudado(pila_din):
+#     print("Mayor fortuna: Boba Fett")
+# elif rcaudado(pila_din) > rcaudado(pila_boba):
+#     print("Mayor fortuna: Din Djarin")
+# else:
+#     print("Ambos recaudaron lo mismo.")
 
 
 # c. determinar el número de la misión es decir su posición desde el fondo de la pila en la que Boba Fett capturo a Han Solo, suponga que dicha misión está cargada;
@@ -316,8 +316,8 @@ def cap_han(pila_boba):
             print(i+1)
         pila_boba.push(x)
 
-print()        
-cap_han(pila_boba)            
+# print()        
+# cap_han(pila_boba)            
 
 # pila_boba.show()
 
@@ -338,14 +338,122 @@ def cant_capturas(pila):
     return contador
 
 
-print()
-cant_capturas(pila_boba)
-print("la cantidad de capturas que realizo boba fett es de :")
-print(cant_capturas(pila_boba))
+# print()
+# cant_capturas(pila_boba)
+# print("la cantidad de capturas que realizo boba fett es de :")
+# print(cant_capturas(pila_boba))
 
+# print()
+
+# print("la cantidad de capturas que tuvo Din es de :")
+# print(cant_capturas(pila_din))
+
+
+
+
+
+#23. Dada una pila con los valores promedio de temperatura ambiente de cada día del mes de abril,obtener la siguiente información sin perder los datos:
+# a. determinar el rango de temperatura del mes, temperatura mínima y máxima;
+# b. calcular el promedio de temperatura (o media) del total de valores;
+# c. determinar la cantidad de valores por encima y por debajo de la media.
+
+from random import uniform
+
+temperaturas_abril = [round(uniform(10.0, 25.0), 1) for _ in range(10)]
+
+pila = Stack()
+
+def cargar(pila):
+    for tem in temperaturas_abril:
+        pila.push(tem)
+
+cargar(pila)
+pila.show()
+    
+# a. determinar el rango de temperatura del mes, temperatura mínima y máxima;
+def temp_min_max(pila):
+    aux = Stack()
+    man = 999
+    max = -999
+    while pila.size() > 0 :
+        x = pila.pop()
+        if x < man :
+            man = x
+        if x > max:
+            max = x
+        aux.push(x)
+
+    while aux.size() > 0:
+        pila.push(aux.pop())
+    return man , max
+
+temperatura_min,temp_max = temp_min_max(pila)
+print()
+print("temperatura minima:")
+print(temperatura_min)
+print()
+print("temperatura maxima:")
+print(temp_max)
 print()
 
-print("la cantidad de capturas que tuvo Din es de :")
-print(cant_capturas(pila_din))
+# b. calcular el promedio de temperatura (o media) del total de valores;
+
+def prom_temp(pila):
+    aux = Stack()
+    total = 0
+    cant = 0
+    resultado = 0
+    while pila.size() > 0 :
+        x = pila.pop()
+        total = total + x
+        cant += 1
+        aux.push(x)
+    
+    while aux.size() > 0:
+        pila.push(aux.pop())
+    
+    resultado = total / cant
+    return resultado
+
+result = prom_temp(pila)
+print("el promedio de temperaturas es :")
+print(result)
+print()
+
+
+
+# c. determinar la cantidad de valores por encima y por debajo de la media.
+
+def cant_enc_deb(pila,result):
+    aux = Stack()
+    encima = 0
+    debajo = 0
+    while pila.size() > 0 :
+        x = pila.pop()
+        if x < result:
+            debajo += 1
+        elif x > result:
+            encima += 1
+        aux.push(x)
+    
+    while aux.size() > 0 :
+        pila.push(aux.pop())
+    
+    return debajo,encima
+
+prom_deb , prom_en = cant_enc_deb(pila,result)
+print("cantidad de valores por debajo de la media:")
+print(prom_deb)
+print("cantidad de valores por encima del promedio:")
+print(prom_en)
+print()
+pila.show()
+
+
+
+
+
+
+
 
 
