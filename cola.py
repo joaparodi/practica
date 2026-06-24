@@ -133,7 +133,7 @@ personajes_star_wars = [
 
 cola = Queue()
 
-def cargar(cola,personajes_star_wars):
+def cargar(cola : Queue,personajes_star_wars : list):
     for p in personajes_star_wars:
         cola.arrive(per_star_wars(p["nombre"],p["planeta"]))
 
@@ -155,8 +155,24 @@ plant_alde_endor_tatooi(cola)
 print()
 
 
+
+# b. indicar el plantea natal de Luke Skywalker y Han Solo
+
+def plan_natal(cola: Queue):
+    aux = Queue()
+    for i in range(cola.size()):
+        x = cola.on_front()
+        if x.nombre == "Luke Skywalker" or x.nombre == "Han Solo":
+            aux.arrive(x.planeta)
+        cola.move_to_end()
+    aux.show()
+    
+print("planeta natal de luke y han:")
+plan_natal(cola)
+print()
+
 # c. insertar un nuevo personaje antes del maestro Yoda
-new= input("ingresa el personaje que va ates del maestro yoda:")
+new = input("ingresa el personaje que va ates del maestro yoda:")
 plan = input("ingresa el planeta:")
 
 def ant_yoda(cola,new,plan):
@@ -177,6 +193,28 @@ if not ant_yoda(cola, new, plan):
     print("El maestro Yoda no está en la cola.")
 else:
     print("Personaje insertado con éxito.")
-
+print()
 cola.show()
-        
+
+
+# d. eliminar el personaje ubicado después de Jar Jar Binks
+
+def elim_des_jar(cola: Queue):
+    esta= False
+    for i in range(cola.size()):
+        buscado = cola.on_front()
+        if esta==True: #esto se activa en la iteracion DESPUES de encontrar a jar jar
+            cola.attention()
+            esta= False#este se vuelve false despues del attention y nunca mas vuelve a activarse
+        elif buscado.nombre == "Jar Jar Binks":
+            esta= True##acá la activo para la proxima iteracion eliminar
+            cola.move_to_end()
+        else:
+            cola.move_to_end()
+  
+elim_des_jar(cola)
+
+print()
+cola.show()
+
+
