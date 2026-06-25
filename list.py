@@ -39,9 +39,9 @@ def cargar(lista):
         lista.append(randint(0,20))
 
 cargar(lista)
-print("lista")
-lista.show()
-print()
+# print("lista")
+# lista.show()
+# print()
 
 def separador_par(lista,lista_par,lista_impar):
     aux = List()
@@ -57,29 +57,54 @@ def separador_par(lista,lista_par,lista_impar):
         
         
 separador_par(lista,lista_par,lista_impar)  
-print("lista con numero impar:")
-print()
-lista_impar.show()
-print()
-print("lista con numeros par:")
-lista_par.show()
-print()
-lista.show()
-print()
+# print("lista con numero impar:")
+# print()
+# lista_impar.show()
+# print()
+# print("lista con numeros par:")
+# lista_par.show()
+# print()
+# lista.show()
+# print()
 
 
 #5. Dada una lista de números enteros eliminar de estas los números primos.
 
-# lista = List()
+lista = List()
 
-# def cargar(lista: List):
-#     for i in range(10):
-#         lista.append(randint(0,20))
+def cargar(lista: List):
+    for i in range(10):
+        lista.append(randint(0,20))
 
-# cargar(lista)
-# lista.show()
+cargar(lista)
+lista.show()
 
+def es_primo(num):
+    if num < 2:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
 
+def elimi_primo(lista: List):
+    temp = List()
+    for i in range(lista.size()):
+        x = lista[i]
+        if not es_primo(x):
+            temp.append(x)
+    
+    while lista.size() > 0 :
+        lista.remove(lista[0])
+    
+    for elemento in temp:
+        lista.append(elemento)    
+    
+            
+elimi_primo(lista)
+print()
+print("lista con primos eliminados:")
+lista.show()
 
 
 
