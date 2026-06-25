@@ -1,3 +1,5 @@
+
+from random import randint
 from list_ import List
 
 
@@ -21,6 +23,28 @@ def contar(nodo):
     return total
 
 print("Cantidad de nodos:", contar(cabeza))
+
+
+
+
+#3. Dada una lista de números enteros, implementar un algoritmo para dividir dicha lista en dos,una que contenga los números pares y otra para los números impares.
+
+lista_par = List()
+lista_impar = List()
+
+lista = List()
+
+def cargar(lista):
+    for i in range(10):
+        lista.append(randint(0,20))
+
+cargar(lista)
+lista.show()
+
+def separador_par(lista,lista_par):
+    
+    
+    
 
 
 
