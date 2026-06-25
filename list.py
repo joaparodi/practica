@@ -22,7 +22,7 @@ def contar(nodo):
         nodo = nodo[1]  # Saltas al siguiente (que está en la posición 1)
     return total
 
-print("Cantidad de nodos:", contar(cabeza))
+# print("Cantidad de nodos:", contar(cabeza))
 
 
 
@@ -39,12 +39,53 @@ def cargar(lista):
         lista.append(randint(0,20))
 
 cargar(lista)
+print("lista")
 lista.show()
+print()
 
-def separador_par(lista,lista_par):
+def separador_par(lista,lista_par,lista_impar):
+    aux = List()
+    for i in range(lista.size()):
+        x = lista[i]
+        if x % 2 == 0:
+            lista_par.append(x)
+        else:
+            lista_impar.append(x)
+        aux.append(x)
     
-    
-    
+   
+        
+        
+separador_par(lista,lista_par,lista_impar)  
+print("lista con numero impar:")
+print()
+lista_impar.show()
+print()
+print("lista con numeros par:")
+lista_par.show()
+print()
+lista.show()
+print()
+
+
+#5. Dada una lista de números enteros eliminar de estas los números primos.
+
+# lista = List()
+
+# def cargar(lista: List):
+#     for i in range(10):
+#         lista.append(randint(0,20))
+
+# cargar(lista)
+# lista.show()
+
+
+
+
+
+
+
+
 
 
 
