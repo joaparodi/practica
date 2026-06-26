@@ -118,6 +118,13 @@ class List(list):
             nueva_lista.append(self[i])
         return nueva_lista
     
+    def filter_start_with_ape(self, values):
+        for element in self:
+            if element.lastname.startswith(values):
+                print(element)
+   
+   
+    
 # class Persona:
 
 #     def __init__(self, nom, ape, ed
