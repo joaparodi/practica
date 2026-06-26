@@ -67,17 +67,61 @@ class List(list):
             if element.name.startswith(values):
                 print(element)
 
-    def count_by_house(self, house_name):
+    def count_by_field(self, field_name, value):
         contador = 0
         for element in self:
-            if element.house == house_name:
+            if element.__dict__.get(field_name) == value:
                 contador += 1
         return contador
     
+    def unir_L(self,value2):
+        for elemento in value2:
+            self.append(elemento)
+    
+    def unir_sin_r(self, value2):
+        for elemento in value2:
+        # La magia de 'not in' funciona para números, strings y objetos
+            if elemento not in self:
+                self.append(elemento)
+    
+    def contar_interseccion(self, otra_lista):
+        contador = 0
+        vistos = [] # Para evitar contar el mismo repetido varias veces
+    
+        # Primer ciclo: recorre la lista actual
+        for elemento_a in self:
+            # Segundo ciclo: recorre la otra lista
+            for elemento_b in otra_lista:
+                # Compara si son iguales
+                if elemento_a == elemento_b:
+                    # Verificamos que no lo hayamos contado antes
+                    if elemento_a not in vistos:
+                        contador += 1
+                        vistos.append(elemento_a)
+        return contador
+    
+    def vaciar_mostrando(self):
+        # Mientras queden elementos en la lista
+        while self.size() > 0:
+            # Obtenemos el primer elemento de la lista (el nodo en la cabeza)
+            elemento = self[0]
+            
+            # Eliminamos el primer nodo (el más eficiente)
+            self.remove(elemento)
+            
+            # Imprimimos lo que acabamos de borrar
+            print(f"Eliminado: {elemento}")
+    
+    def invertida(self):
+        nueva_lista = List()
+        for i in range(len(self) - 1, -1, -1):
+            nueva_lista.append(self[i])
+        return nueva_lista
     
 # class Persona:
 
-#     def __init__(self, nom, ape, edad):
+#     def __init__(self, nom, ape, ed
+# ad):
 #         self.nom = nom
 #         self.ape = ape
 #         self.edad = edad

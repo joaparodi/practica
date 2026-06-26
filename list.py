@@ -307,12 +307,95 @@ print()
 # i. determinar cuántos superhéroes hay de cada casa de comic.
 print("cantidad de superheroes que ahi por casa de comic:")
 
-dc = lista.count_by_house('DC')
+dc = lista.count_by_field('house','DC')
 print(f"cantidad de superheroes de la casa de comic de DC es de:{dc} ")
 
-Marvel = lista.count_by_house('Marvel')
+Marvel = lista.count_by_field('house','Marvel')
 
 print(f"cantidad de superheroes de la casa de comic de Marvel es de :{Marvel}")
 
+print()
+
+# 7. Implementar los algoritmos necesarios para resolver las siguientes tareas:
+# a. concatenar dos listas, una atrás de la otra;
+# b. concatenar dos listas en una sola omitiendo los datos repetidos y manteniendo su orden;
+# c. contar cuántos elementos repetidos hay entre dos listas, es decir la intersección de ambas;
+#d. eliminar todos los nodos de una lista de a uno a la vez mostrando su contenido.
+
+lista = List()
+list_1 = List()
+list_2 = List()
+
+def cargar(lista: List):
+    for i in range(10):
+        lista.append(randint(0,10))
+
+cargar(list_1)
+cargar(list_2)
+print("lista 1:")
+list_1.show()
+print()
+print("lista 2:")
+print()
+list_2.show()
+print()
+
+# a. concatenar dos listas, una atrás de la otra;
+
+# list_1.unir_L(list_2)
+# list_1.show()
+
+# b. concatenar dos listas en una sola omitiendo los datos repetidos y manteniendo su orden
+
+# list_1.unir_sin_r(list_2)
+# list_1.show()
+
+# c. contar cuántos elementos repetidos hay entre dos listas, es decir la intersección de ambas;
+
+total_rep = list_1.contar_interseccion(list_2)
+print(f"el total de valores repetidos es : {total_rep}")
+
+#d. eliminar todos los nodos de una lista de a uno a la vez mostrando su contenido.
+
+list_1.vaciar_mostrando()
+
+
+
+
+#8. Utilizando una lista doblemente enlazada, cargar una palabra carácter a carácter, y determinar si la misma es un palíndromo, sin utilizar ninguna estructura auxiliar.
+
+palabra = input("dar la palabra: ")
+
+lista = List()
+
+def cargar(lista : List):
+    for caracter in palabra:
+        lista.append(caracter)
+
+cargar(lista)
+lista.show()
+
+def es_palindromo(lista: List) -> bool:
+    # Índice que empieza al principio (0)
+    inicio = 0
+    # Índice que empieza al final (len - 1)
+    fin = len(lista) - 1
+    
+    # Mientras los índices no se crucen
+    while inicio < fin:
+        # Si los caracteres en los extremos no coinciden, no es palíndromo
+        if lista[inicio] != lista[fin]:
+            return False
+        
+        # Movemos los índices hacia el centro
+        inicio += 1
+        fin -= 1
+        
+    return True
+
+if es_palindromo(lista):
+    print("la palabra es un palindromo")
+else:
+    print("la palabra no es un palindromo")     
 
 
