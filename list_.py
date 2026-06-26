@@ -67,7 +67,14 @@ class List(list):
             if element.name.startswith(values):
                 print(element)
 
-
+    def count_by_house(self, house_name):
+        contador = 0
+        for element in self:
+            if element.house == house_name:
+                contador += 1
+        return contador
+    
+    
 # class Persona:
 
 #     def __init__(self, nom, ape, edad):
