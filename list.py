@@ -448,8 +448,8 @@ notas_data = {
     ]
 }
 
-lista_n = List()
-lista = List()
+# lista_n = List()
+# lista = List()
 
 class Alumno:
     def __init__(self,nombre,apellido,legajo):
@@ -476,207 +476,207 @@ class Nota:
 
 
 
-def cargar_Alum(lista: List,alumnos_data):
-    for a in alumnos_data:
-        nuevo_alumno = Alumno(a["nombre"], a["apellido"], a["legajo"])     
-        lista.append(nuevo_alumno)
+# def cargar_Alum(lista: List,alumnos_data):
+#     for a in alumnos_data:
+#         nuevo_alumno = Alumno(a["nombre"], a["apellido"], a["legajo"])     
+#         lista.append(nuevo_alumno)
 
-cargar_Alum(lista,alumnos_data)
+# cargar_Alum(lista,alumnos_data)
 # lista.show()
 
 
 
 
-def cargar_notas_en_alumnos(lista: List, notas_data):
-    for alumno in lista:
-        # Buscamos si el legajo del alumno tiene notas en el diccionario
-        if alumno.legajo in notas_data:
-            for n in notas_data[alumno.legajo]:
-                nueva_nota = Nota(n["materia"], n["nota"], n["fecha"])
-                # Aquí está la clave: guardamos la nota en la sub-lista del alumno
-                alumno.nota.append(nueva_nota)
+# def cargar_notas_en_alumnos(lista: List, notas_data):
+#     for alumno in lista:
+#         # Buscamos si el legajo del alumno tiene notas en el diccionario
+#         if alumno.legajo in notas_data:
+#             for n in notas_data[alumno.legajo]:
+#                 nueva_nota = Nota(n["materia"], n["nota"], n["fecha"])
+#                 # Aquí está la clave: guardamos la nota en la sub-lista del alumno
+#                 alumno.nota.append(nueva_nota)
 
-cargar_notas_en_alumnos(lista,notas_data)
-lista.show()
+# cargar_notas_en_alumnos(lista,notas_data)
+# lista.show()
 
 
 # a. mostrar los alumnos ordenados alfabéticamente por apellido;
-def by_lastname(item):
-    return item.lastname
+# def by_lastname(item):
+#     return item.lastname
 
-lista.add_criterion('lastname',by_lastname)
+# lista.add_criterion('lastname',by_lastname)
 
-lista.sort_by_criterion("lastname")
-print()
-lista.show()
+# lista.sort_by_criterion("lastname")
+# print()
+# lista.show()
 
-print()
+# print()
 # b. indicar los alumnos que no desaprobaron ningún parcial;
 
-def mostrar_alumnos_sin_desaprobados(lista):
-    print("Alumnos que aprobaron todos los parciales:")
+# def mostrar_alumnos_sin_desaprobados(lista):
+#     print("Alumnos que aprobaron todos los parciales:")
     
-    for alumno in lista:
-        # Supongamos que 4 es la nota mínima para aprobar
-        tiene_desaprobados = False
+#     for alumno in lista:
+#         # Supongamos que 4 es la nota mínima para aprobar
+#         tiene_desaprobados = False
         
-        # Recorremos la sub-lista de notas del alumno
-        for nota in alumno.nota:
-            if nota.nota < 4:
-                tiene_desaprobados = True
-                break # Si tiene un desaprobado, dejamos de revisar a este alumno
+#         # Recorremos la sub-lista de notas del alumno
+#         for nota in alumno.nota:
+#             if nota.nota < 4:
+#                 tiene_desaprobados = True
+#                 break # Si tiene un desaprobado, dejamos de revisar a este alumno
         
-        # Si la bandera sigue siendo False, el alumno no desaprobó nada
-        if not tiene_desaprobados:
-            print(f"- {alumno.lastname}, {alumno.name}")
+#         # Si la bandera sigue siendo False, el alumno no desaprobó nada
+#         if not tiene_desaprobados:
+#             print(f"- {alumno.lastname}, {alumno.name}")
 
-mostrar_alumnos_sin_desaprobados(lista)
+# mostrar_alumnos_sin_desaprobados(lista)
 
 
 # c. determinar los alumnos que tienen promedio mayor a 8,89;
-print()
+# print()
 
-def mostrar_promedios_altos(lista):
-    print("--- Alumnos con promedio mayor a 8.89 ---")
+# def mostrar_promedios_altos(lista):
+#     print("--- Alumnos con promedio mayor a 8.89 ---")
     
-    # Recorremos la lista principal de alumnos
-    for alumno in lista:
-        # Reiniciamos variables por cada alumno
-        total = 0
-        contador = 0
+#     # Recorremos la lista principal de alumnos
+#     for alumno in lista:
+#         # Reiniciamos variables por cada alumno
+#         total = 0
+#         contador = 0
         
-        # Recorremos la sub-lista de notas de ESTE alumno
-        for nota_obj in alumno.nota:
-            total += nota_obj.nota
-            contador += 1
+#         # Recorremos la sub-lista de notas de ESTE alumno
+#         for nota_obj in alumno.nota:
+#             total += nota_obj.nota
+#             contador += 1
         
-        # Calculamos el promedio si el alumno tiene al menos una nota
-        if contador > 0:
-            promedio = total / contador
-            if promedio > 8.89:
-                print(f"{alumno.lastname}, {alumno.name} - Promedio: {promedio:.2f}")
+#         # Calculamos el promedio si el alumno tiene al menos una nota
+#         if contador > 0:
+#             promedio = total / contador
+#             if promedio > 8.89:
+#                 print(f"{alumno.lastname}, {alumno.name} - Promedio: {promedio:.2f}")
 
 # Llamada a la función
-mostrar_promedios_altos(lista)
-print()
+# mostrar_promedios_altos(lista)
+# print()
 
 # d. mostrar toda la información de los alumnos cuyos apellidos comienzan con L;
-print("la información de los alumnos cuyos apellidos comienzan con L:")
-lista.filter_start_with_ape(("L"))
+# print("la información de los alumnos cuyos apellidos comienzan con L:")
+# lista.filter_start_with_ape(("L"))
 
 print()
 # e. mostrar el promedio de cada uno de los alumnos;
-print("promedio de cada alumno")
+# print("promedio de cada alumno")
 
-def mostrar_promedios(lista):
-    for alumno in lista:
-        total = 0
-        contador = 0
-        for nota_obj in alumno.nota:
-            total += nota_obj.nota
-            contador += 1
-        if contador > 0:
-            promedio = total / contador
-            print(f"{alumno.lastname}, {alumno.name} - Promedio: {promedio:.2f}")
-        else:
-            print(f"{alumno.lastname}, {alumno.name} - Sin notas")
+# def mostrar_promedios(lista):
+#     for alumno in lista:
+#         total = 0
+#         contador = 0
+#         for nota_obj in alumno.nota:
+#             total += nota_obj.nota
+#             contador += 1
+#         if contador > 0:
+#             promedio = total / contador
+#             print(f"{alumno.lastname}, {alumno.name} - Promedio: {promedio:.2f}")
+#         else:
+#             print(f"{alumno.lastname}, {alumno.name} - Sin notas")
 
 
 
-mostrar_promedios(lista)
-print()
+# mostrar_promedios(lista)
+# print()
 
 # f. mostrar todos los alumnos que rindieron la cátedra “Algoritmos y estructuras de datos”;
-print("alumnos que rindieron la cátedra “Algoritmos y estructuras de datos”:")
-def rindieron_alg(lista):
-    for alumno in lista:
-        for nota_obj in alumno.nota:
-            x = nota_obj
-            if x.materia ==  "Algoritmos y estructuras de datos":
-                print(f"{alumno.lastname}, {alumno.name}")
-                # Encontramos la materia, podemos pasar al siguiente alumno
-                break
+# print("alumnos que rindieron la cátedra “Algoritmos y estructuras de datos”:")
+# def rindieron_alg(lista):
+#     for alumno in lista:
+#         for nota_obj in alumno.nota:
+#             x = nota_obj
+#             if x.materia ==  "Algoritmos y estructuras de datos":
+#                 print(f"{alumno.lastname}, {alumno.name}")
+#                 # Encontramos la materia, podemos pasar al siguiente alumno
+#                 break
 
-rindieron_alg(lista)
+# rindieron_alg(lista)
 
 
 # g. indicar el porcentaje de parciales aprobados de un alumno indicado por el usuario;
-print()
-print("indicar el porcentaje de parciales aprobados de un alumno indicado por el usuario")
+# print()
+# print("indicar el porcentaje de parciales aprobados de un alumno indicado por el usuario")
 
-buscado = input("ingrese el nombre del alumno a buscar:")
+# buscado = input("ingrese el nombre del alumno a buscar:")
 
-def alumno_buscado(lista,buscado):
-    encontrado = False
-    for alumno in lista:
-        if alumno.name == buscado:
-            encontrado = True
-            total_notas = len(alumno.nota)
-            if total_notas == 0:
-                print("El alumno no tiene notas cargadas.")
-                return
+# def alumno_buscado(lista,buscado):
+#     encontrado = False
+#     for alumno in lista:
+#         if alumno.name == buscado:
+#             encontrado = True
+#             total_notas = len(alumno.nota)
+#             if total_notas == 0:
+#                 print("El alumno no tiene notas cargadas.")
+#                 return
 
-            # Contamos cuántas materias aprobó (nota >= 4)
-            aprobadas = 0
-            for nota_obj in alumno.nota:
-                if nota_obj.nota >= 4:
-                    aprobadas += 1
+#             # Contamos cuántas materias aprobó (nota >= 4)
+#             aprobadas = 0
+#             for nota_obj in alumno.nota:
+#                 if nota_obj.nota >= 4:
+#                     aprobadas += 1
             
-            # Calculamos el porcentaje
-            porcentaje = (aprobadas / total_notas) * 100
-            print(f"El porcentaje de aprobados de {alumno.name} {alumno.lastname} es: {porcentaje:.2f}%")
-            break
-    if not encontrado:
-        print("Error: El alumno no se encuentra en la lista.")
+#             # Calculamos el porcentaje
+#             porcentaje = (aprobadas / total_notas) * 100
+#             print(f"El porcentaje de aprobados de {alumno.name} {alumno.lastname} es: {porcentaje:.2f}%")
+#             break
+#     if not encontrado:
+#         print("Error: El alumno no se encuentra en la lista.")
         
         
-alumno_buscado(lista,buscado) 
-print()
+# alumno_buscado(lista,buscado) 
+# print()
 
 # h. indicar cuantos alumnos aprobaron y desaprobaron parciales de la cátedra “Base de datos”;
-print("indicar cuantos alumnos aprobaron y desaprobaron parciales de la cátedra “Base de datos”")
-lista_a = List()
-lista_d = List()
-def apro_des_base(lista,lista_a,lista_d):
-    apro = 0
-    des = 0
-    for alumno in lista:
-        for nota_obj in alumno.nota:
-            if nota_obj.materia == "Base de datos":
-                if nota_obj.nota > 4 :
-                    lista_a.append(alumno)
-                    apro += 1
-                else:
-                    lista_d.append(alumno)
-                    des += 1
-    return apro,des
+# print("indicar cuantos alumnos aprobaron y desaprobaron parciales de la cátedra “Base de datos”")
+# lista_a = List()
+# lista_d = List()
+# def apro_des_base(lista,lista_a,lista_d):
+#     apro = 0
+#     des = 0
+#     for alumno in lista:
+#         for nota_obj in alumno.nota:
+#             if nota_obj.materia == "Base de datos":
+#                 if nota_obj.nota > 4 :
+#                     lista_a.append(alumno)
+#                     apro += 1
+#                 else:
+#                     lista_d.append(alumno)
+#                     des += 1
+#     return apro,des
 
-aprobados,desaprobados = apro_des_base(lista,lista_a,lista_d)
+# aprobados,desaprobados = apro_des_base(lista,lista_a,lista_d)
 
-print()
-print(f"aprobados:{aprobados}")
-lista_a.show()
-print()
-print(f"desaprobados:{desaprobados}")
-lista_d.show()
+# print()
+# print(f"aprobados:{aprobados}")
+# lista_a.show()
+# print()
+# print(f"desaprobados:{desaprobados}")
+# lista_d.show()
 
 
 # i. mostrar todos los alumnos que rindieron en el año 2020;
-lista_rin_2020 = List()
+# lista_rin_2020 = List()
 
-def alum_2020(lista,lista_rin_2020):
-    for alumno in lista:
-        for nota_obj in alumno.nota:
-            if "2020" in nota_obj.fecha :#compara en la cadena si esta ese valor
+# def alum_2020(lista,lista_rin_2020):
+#     for alumno in lista:
+#         for nota_obj in alumno.nota:
+#             if "2020" in nota_obj.fecha :#compara en la cadena si esta ese valor
                 
-                lista_rin_2020.append(alumno)
-                break
+#                 lista_rin_2020.append(alumno)
+#                 break
             
             
-alum_2020(lista,lista_rin_2020)
-print()
-print("lista de los alumnos que rindieron en el 2020:")
-lista_rin_2020.show()
+# alum_2020(lista,lista_rin_2020)
+# print()
+# print("lista de los alumnos que rindieron en el 2020:")
+# lista_rin_2020.show()
 
 
 # j. debe modificar el TDA para implementar lista de lista.
@@ -694,8 +694,82 @@ lista_rin_2020.show()
 
 class Canciones:
     def __init__(self,nombre,artistas,duracion,cant_repro):
-        self._name = nombre
-        
+        self.name = nombre
+        self.artist = artistas
+        self.time = duracion
+        self.cant = cant_repro
+    
+    def __str__(self):
+        return f"nombre:{self.name}------artistas o banda:{self.artist}------duracion:{self.time}-------reproduciones:{self.cant}"
+
+
+
+# Lista de diccionarios con la información de las canciones
+spotify_data = [
+    {"nombre": "Do I Wanna Know?", "artista": "Arctic Monkeys", "duracion": 272, "reproducciones": 1500000},
+    {"nombre": "Bohemian Rhapsody", "artista": "Queen", "duracion": 354, "reproducciones": 2000000},
+    {"nombre": "Yellow", "artista": "Coldplay", "duracion": 269, "reproducciones": 1200000},
+    {"nombre": "R U Mine?", "artista": "Arctic Monkeys", "duracion": 201, "reproducciones": 900000},
+    {"nombre": "Blinding Lights", "artista": "The Weeknd", "duracion": 200, "reproducciones": 3000000},
+    {"nombre": "Starlight", "artista": "Muse", "duracion": 240, "reproducciones": 800000},
+    {"nombre": "Human", "artista": "Rag'n'Bone Man", "duracion": 199, "reproducciones": 1100000},
+    {"nombre": "Levitating", "artista": "Dua Lipa", "duracion": 203, "reproducciones": 2500000},
+    {"nombre": "Imagine", "artista": "John Lennon", "duracion": 183, "reproducciones": 1800000},
+    {"nombre": "Thriller", "artista": "Michael Jackson", "duracion": 357, "reproducciones": 2200000}
+]
+
+lista = List()
+
+def cargar(lista:List,spotify_data):#se pone en la clase cancion los nombres entre comillas que tiene el diccionario
+    for cancion in spotify_data:
+        lista.append(Canciones(cancion["nombre"],cancion["artista"],cancion["duracion"],cancion["reproducciones"]))
+
+cargar(lista,spotify_data)
+lista.show()
+print()
+
+# a. obtener la información de la canción más larga;
+def cancion_mas_larga(lista):
+    lista_l = None
+    maximo = 0
+    for cancion in lista:
+        if cancion.time > maximo:
+            maximo = cancion.time
+            lista_l =cancion
+    return lista_l
+   
+
+lista_m_larga = cancion_mas_larga(lista)
+if lista_m_larga:
+    print(lista_m_larga)
+else:
+    print("no existe ninguna cancion")
+
+
+# b. obtener el TOP 5, TOP 10 y TOP 40 de canciones más escuchadas;
+def mostrar_top(lista, n):
+    lista.sort_by_criterion('repro') 
+    
+    print(f"\n--- TOP {n} canciones ---")
+    contador = 0
+    for cancion in lista:
+        if contador < n:
+            print(f"{contador + 1}: {cancion.name} ({cancion.cant} repros)")
+            contador += 1
+        else:
+            break # Cuando llegamos al límite, cortamos el bucle
+
+# Uso:
+mostrar_top(lista, 5)
+mostrar_top(lista, 10)
+mostrar_top(lista, 40)
+
+# c. obtener todas las canciones de la banda Arctic Monkeys;
+def can_ban(lista):
+    lista_b = None
+    for cancion in lista:
+        if cancion.name == "Arctic Monkeys":
+            x = cancion.
 
 
 
