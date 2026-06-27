@@ -414,6 +414,8 @@ cargar(lista,superheroes)
 # j. debe modificar el TDA para implementar lista de lista.
 
 
+
+
 alumnos_data = [
     {"nombre": "Juan", "apellido": "Perez", "legajo": 101},
     {"nombre": "Maria", "apellido": "Lopez", "legajo": 102},
@@ -430,7 +432,7 @@ notas_data = {
     ],
     102: [
         {"materia": "Algoritmos y estructuras de datos", "nota": 4, "fecha": "15/04/2026"},
-        {"materia": "Base de datos", "nota": 3, "fecha": "20/05/2026"}
+        {"materia": "Base de datos", "nota": 3, "fecha": "20/05/2020"}
     ],
     103: [
         {"materia": "Algoritmos y estructuras de datos", "nota": 10, "fecha": "15/04/2026"},
@@ -442,7 +444,7 @@ notas_data = {
     ],
     105: [
         {"materia": "Algoritmos y estructuras de datos", "nota": 2, "fecha": "15/04/2026"},
-        {"materia": "Base de datos", "nota": 3, "fecha": "20/05/2026"}
+        {"materia": "Base de datos", "nota": 3, "fecha": "20/05/2020"}
     ]
 }
 
@@ -659,11 +661,41 @@ print(f"desaprobados:{desaprobados}")
 lista_d.show()
 
 
+# i. mostrar todos los alumnos que rindieron en el año 2020;
+lista_rin_2020 = List()
+
+def alum_2020(lista,lista_rin_2020):
+    for alumno in lista:
+        for nota_obj in alumno.nota:
+            if "2020" in nota_obj.fecha :#compara en la cadena si esta ese valor
+                
+                lista_rin_2020.append(alumno)
+                break
+            
+            
+alum_2020(lista,lista_rin_2020)
+print()
+print("lista de los alumnos que rindieron en el 2020:")
+lista_rin_2020.show()
+
+
+# j. debe modificar el TDA para implementar lista de lista.
+#ya lo hice al crear la clase de alumnos y adentro ponerle lo de self.nota = List()
 
 
 
 
+# 10. Se dispone de una lista de canciones de Spotify, de las cuales se sabe su nombre, banda o artista, duración y cantidad de reproducciones durante el último mes. Desarrollar un algoritmo que
+# permita realizar las siguientes actividades:
+# a. obtener la información de la canción más larga;
+# b. obtener el TOP 5, TOP 10 y TOP 40 de canciones más escuchadas;
+# c. obtener todas las canciones de la banda Arctic Monkeys;
+# d. mostrar los nombres de las bandas o artistas que solo son de una palabra.
 
+class Canciones:
+    def __init__(self,nombre,artistas,duracion,cant_repro):
+        self._name = nombre
+        
 
 
 
