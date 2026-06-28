@@ -763,13 +763,36 @@ def mostrar_top(lista, n):
 mostrar_top(lista, 5)
 mostrar_top(lista, 10)
 mostrar_top(lista, 40)
+print()
 
 # c. obtener todas las canciones de la banda Arctic Monkeys;
 def can_ban(lista):
-    lista_b = None
+    lista_b = List()
     for cancion in lista:
-        if cancion.name == "Arctic Monkeys":
-            x = cancion.
+        if cancion.artist == "Arctic Monkeys":
+            lista_b.append(cancion)
+    return lista_b
+
+
+canciones_de_banda = can_ban(lista)
+print("Canciones de la banda Arctic Monkeys")
+canciones_de_banda.show()
+
+
+# d. mostrar los nombres de las bandas o artistas que solo son de una palabra.
+def nombre_1palabra(lista):
+    lista_palabra = List()
+    for cancion in lista:
+        if len(cancion.artist.split()) == 1:
+            lista_palabra.append(cancion.artist)
+    return lista_palabra
+
+onepalabra = nombre_1palabra(lista)
+print()
+print("banda o artistas con solo una palabra en el nombre:")
+onepalabra.show()
+
+
 
 
 
