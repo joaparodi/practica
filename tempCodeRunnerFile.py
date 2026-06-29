@@ -1,12 +1,13 @@
-lista_rin_2020 = List()
+def by_name(item):
+    return item.name
 
-# def alum_2020(lista,lista_rin_2020):
-#     for alumno in lista:
-#         for nota_obj in alumno.nota:
-#             if "2020" in nota_obj.fecha :#compara en la cadena si esta ese valor
-                
-#                 lista_rin_2020.append(alumno)
-#                 break
-            
-            
-# alum_2020(lista,lista_rin_2020)
+def by_species(item):
+    return item.species
+
+lista_p.add_criterion("name",by_name)
+lista_p.add_criterion("species",by_species)
+lista_p.sort_by_criterion("species")
+lista_p.sort_by_criterion("name")
+
+
+lista_p.show()

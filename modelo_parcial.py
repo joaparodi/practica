@@ -286,6 +286,9 @@ separacion_letra(pila,pila_aparte,(("A","Q","S")))
 
 print("esta es la pila aparte de los que comienzan con A , Q , S:")
 pila_aparte.show()
+print()
+print()
+print()
 
 # 3. Se dispone de una lista de todos los Jedi, de cada uno de estos se conoce su nombre, maestros, colores de sable de luz usados y especie. implementar las funciones
 # necesarias para resolver las actividades enumeradas a continuación:
@@ -904,7 +907,60 @@ def cargar(lista_p: List,data_jedis):
         lista_p.append(Jedi(j["name"],j["rank"],j["species"],j["master"],j["lightsaber_color"],j["homeworld"],j["birth_year"],j["height"],j["to_darkside"],j["come_lightside"]))
                
 cargar(lista_p,data_jedis)
-lista_p.show()
+# lista_p.show()
+
+
+#a) listado ordenado por nombre y por especie
+
+#criterios
+def by_name(item):
+    return item.name
+
+def by_species(item):
+    if item.species is None:
+        return "" 
+    return item.species
+    
+
+lista_p.add_criterion("name",by_name)
+lista_p.add_criterion("species",by_species)
+lista_p.sort_by_criterion("species")
+lista_p.sort_by_criterion("name")
+
+
+# lista_p.show()
+
+
+# b) mostrar toda la información de Ahsoka Tano y Kit Fisto;
+
+def mostra_inf(lista_p : List , buscado):
+    aux = List()
+    for pj in lista_p:
+        if pj.name == buscado:
+            aux.append(pj)
+    return aux
+
+ahsoka_tano = mostra_inf(lista_p,"Ahsoka Tano")
+
+if ahsoka_tano.size() > 0 :
+    ahsoka_tano.show()
+else:
+    print("no se encontro")
+
+Kit_Fisto = mostra_inf(lista_p,"Kit Fisto")
+
+if Kit_Fisto.size() > 0 :
+    Kit_Fisto.show()
+else:
+    print("no se encontro")
+
+
+# c) mostrar todos los padawan de Yoda y Luke Skywalker, es decir sus aprendices;
+def mostrar_aprendices(lista_p : List)
+
+
+
+
 
 
 
