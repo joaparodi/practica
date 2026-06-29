@@ -791,6 +791,280 @@ onepalabra = nombre_1palabra(lista)
 print()
 print("banda o artistas con solo una palabra en el nombre:")
 onepalabra.show()
+print()
+print()
+print()
+
+
+
+
+
+
+# 11. Dada una lista que contiene información de los personajes de la saga de Star Wars con la si-
+# guiente información nombre, altura, edad, género, especie, planeta natal y episodios en los que
+# apareció, desarrollar los algoritmos que permitan realizar las siguientes actividades:
+# a. listar todos los personajes de género femenino;
+# b. listar todos los personajes de especie Droide que aparecieron en los primeros seis episodios de la saga;
+# c. mostrar toda la información de Darth Vader y Han Solo;
+# d. listar los personajes que aparecen en el episodio VII y en los tres anteriores;
+# e. mostrar los personajes con edad mayor a 850 años y de ellos el mayor;
+# f. eliminar todos los personajes que solamente aparecieron en los episodios IV, V y VI;
+# g. listar los personajes de especie humana cuyo planeta de origen es Alderaan;
+# h. mostrar toda la información de los personajes cuya altura es menor a 70 centímetros;
+# i. determinar en qué episodios aparece Chewbacca y mostrar además toda su información.
+
+
+class Personajes:
+    def __init__(self,nombre,altura,edad,genero,especie,planeta_natal,lista_episodios):
+        self.name = nombre
+        self.height = altura
+        self.age = edad
+        self.genero = genero
+        self.species = especie
+        self.natal = planeta_natal
+        self.episodios = lista_episodios
+    
+    def __str__(self):
+        return f"nombre:{self.name}---altura:{self.height}----edad:{self.age}----genero:{self.genero}----especie:{self.species}----planeta natal:{self.natal}-----episodios:{self.episodios}"
+
+
+
+star_wars_data = [
+    {
+        "nombre": "Luke Skywalker", "altura": 172, "edad": 19, "genero": "masculino", 
+        "especie": "humano", "planeta": "alderaan", "episodios": [4, 5, 6, 7, 8, 9]
+    },
+    {
+        "nombre": "Darth Vader", "altura": 202, "edad": 45, "genero": "masculino", 
+        "especie": "humano", "planeta": "alderaan", "episodios": [3, 4, 5, 6]
+    },
+    {
+        "nombre": "R2-D2", "altura": 86, "edad": 33, "genero": "desconocido", 
+        "especie": "droide", "planeta": "Naboo", "episodios": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    {
+        "nombre": "Yoda", "altura": 66, "edad": 900, "genero": "masculino", 
+        "especie": "yoda", "planeta": "desconocido", "episodios": [1, 2, 3, 5, 6]
+    },
+    {
+        "nombre": "Han Solo", "altura": 180, "edad": 30, "genero": "masculino", 
+        "especie": "humano", "planeta": "Corellia", "episodios": [4, 5, 6,7]
+    },
+    {
+        "nombre": "Chewbacca", "altura": 228, "edad": 200, "genero": "masculino", 
+        "especie": "wookiee", "planeta": "Kashyyyk", "episodios": [3, 4, 5, 6, 7, 8, 9]
+    }
+]
+
+
+lista_p = List()
+
+def cargar(lista_p:List,star_wars_data):
+    for personajes in star_wars_data:
+        lista_p.append(Personajes(personajes["nombre"],personajes["altura"],personajes["edad"],personajes["genero"],personajes["especie"],personajes["planeta"],personajes["episodios"]))     
+
+
+cargar(lista_p,star_wars_data)
+lista_p.show()
+print()
+
+
+# a. listar todos los personajes de género femenino;
+
+def gnero(lista_p: List,genro):
+    lis_femenino = List()
+    for personaje in lista_p:
+        if personaje.genero == genro:
+            lis_femenino.append(personaje)
+    return lis_femenino
+
+print("personaje femeninos:")        
+femeninos = gnero(lista_p,"femenino")
+if femeninos.size() > 0 :
+    femeninos.show()
+else:
+    print("no se encontro ningun personaje femenino")
+
+
+# b. listar todos los personajes de especie Droide que aparecieron en los primeros seis episodios de la saga;
+
+def lis_especie_episo(lista_p: List,especie):
+    listaaux = List()
+    for personaje in lista_p:
+        if personaje.species == especie:
+            for ep in personaje.episodios:
+                if ep <= 6:
+                    listaaux.append(personaje)
+                    break
+    return listaaux
+
+lpersonaje = lis_especie_episo(lista_p,"droide")
+if lpersonaje.size() > 0 :
+    lpersonaje.show()
+else:
+    print("no se encontro ningun personaje")
+
+
+
+# c. mostrar toda la información de Darth Vader y Han Solo;
+def mostrar_b(lista_p: List,buscado):
+    aux = List()
+    for personaje in lista_p:
+        if personaje.name == buscado:
+            return personaje
+    return None
+
+mostrar_b(lista_p,"Darth Vader")
+darth_vader = mostrar_b(lista_p,"Darth Vader")
+han_solo = mostrar_b(lista_p,"Han Solo")
+print()
+if darth_vader:
+    print(darth_vader)
+else:
+    print("no se encontro")
+    
+print()
+if han_solo:
+    print(han_solo)
+else:
+    print("no se encontro")
+
+
+# d. listar los personajes que aparecen en el episodio VII y en los tres anteriores;
+
+def per_vii(lista_p: List):
+    aux = List()
+    # Definimos los que queremos encontrar
+    eps_buscados = [4, 5, 6, 7]
+    
+    for personaje in lista_p:
+        # Esta variable nos ayuda a saber si cumple todos
+        cumple = True
+        
+        # Recorremos los que buscamos
+        for ep_b in eps_buscados:
+            # Si un episodio que buscamos NO está en la lista del personaje, no cumple
+            if ep_b not in personaje.episodios:
+                cumple = False
+                break 
+        
+        # Si después de revisar, cumple sigue siendo True, lo agregamos
+        if cumple:
+            aux.append(personaje)
+            
+    return aux
+
+episodio_vii = per_vii(lista_p)
+
+if episodio_vii.size() > 0:
+    episodio_vii.show()
+else:
+    print("ninguno cumple esas caracteristicas:")
+
+print()
+
+
+# e. mostrar los personajes con edad mayor a 850 años y de ellos el mayor;
+print("mostrar los personajes con edad mayor a 850 años y de ellos el mayor")
+def el_mayor(lista_p: List):
+    mayor = None
+    aux = List()
+    for personaje in lista_p:
+        if personaje.age > 850:
+            aux.append(personaje)
+            if mayor is None or personaje.age > mayor.age:
+                mayor = personaje
+    return aux , mayor
+
+lis_mayor,mayor_ellos = el_mayor(lista_p)
+
+if lis_mayor.size() > 0:
+    lis_mayor.show()
+    print()
+    print(f"el mayor tiene :{mayor_ellos.age} años")
+else:
+    print("no se encontro ninguno")
+
+
+
+# f. eliminar todos los personajes que solamente aparecieron en los episodios IV, V y VI;
+
+def dele_p(lista_p: List):
+    aux =List()
+    eps_buscados = [4, 5, 6]
+    for personaje in lista_p:
+        if personaje.episodios != eps_buscados:
+            aux.append(personaje)
+    return aux            
+
+
+quedaron = dele_p(lista_p)
+
+if quedaron.size() > 0:
+    quedaron.show()
+else:
+    print("no quedo ninguno en la lista")
+
+print()
+
+# g. listar los personajes de especie humana cuyo planeta de origen es Alderaan;
+
+def lis_condicion(lista_p : List , esp , plan):
+    aux = List()
+    for personaje in lista_p:
+        if personaje.species == esp and personaje.natal == plan :
+            aux.append(personaje)
+    return aux
+
+
+esp_humana_alderaan = lis_condicion(lista_p,"humano", "alderaan")
+
+if esp_humana_alderaan.size() > 0:
+    esp_humana_alderaan.show()
+else:
+    print("no se encontro alguien con esas caracteristicas")
+
+print()
+
+# h. mostrar toda la información de los personajes cuya altura es menor a 70 centímetros;
+def altura_70(lista_p : List,alt):
+    aux = List()
+    for personaje in lista_p:
+        if personaje.height < alt :
+            aux.append(personaje)
+    return aux
+
+menores_70 = altura_70(lista_p,70)
+
+if menores_70.size() > 0 :
+    menores_70.show()
+else:
+    print("no se encontro nadie menor a esa altura")          
+
+print()      
+
+# i. determinar en qué episodios aparece Chewbacca y mostrar además toda su información.
+print("episodios en los que aparece Chewbacca:")
+def busqueda(lista_p : List,pj):
+    aux = List()
+    for personaje in lista_p:
+        if personaje.name == pj :
+            print(personaje.episodios)
+            print()
+            aux.append(personaje)
+    return aux
+
+b_pj = busqueda(lista_p,"Chewbacca")
+
+if b_pj.size() > 0 :
+    b_pj.show()
+else:
+    print("el personaje no se encontro:")
+
+
+
+
+
 
 
 
