@@ -956,10 +956,149 @@ else:
 
 
 # c) mostrar todos los padawan de Yoda y Luke Skywalker, es decir sus aprendices;
-def mostrar_aprendices(lista_p : List)
+def mostrar_aprendices(lista_p : List,maestro):
+    aux = List()
+    for pj in lista_p:
+        if pj.master is not None and maestro in pj.master:
+            aux.append(pj)
+    
+    return aux
+
+print()
+print("estos son los padawan de yoda:")
+padawan_yoda = mostrar_aprendices(lista_p,"Yoda")
+if padawan_yoda.size() > 0:
+    padawan_yoda.show()
+else:
+    print("no tiene aprendices")
+
+
+print()
+print("estos son los padawan de Luke Skywalker:")
+padawan_luke = mostrar_aprendices(lista_p,"Luke Skywalker")
+
+if padawan_luke.size() > 0:
+    padawan_luke.show()
+else:
+    print("no tiene aprendices")
+print()
+
+
+# d) mostrar los Jedi de especie humana y twi'lek;
+
+def mostrar_esp(lista_p : List,esp):
+    aux = List()
+    for pj in lista_p:
+        if pj.species is not None and esp in pj.species:
+            aux.append(pj)
+    return aux
+
+e_humana = mostrar_esp(lista_p,"Human")
+print("lista de personajes de la especie humana: ")
+if e_humana.size() > 0 :
+    e_humana.show()
+else:
+    print("no ahi especie humana")
+
+e_twilek = mostrar_esp(lista_p,"Twi'lek")
+print()
+print("lista de personajes de la especie twi'lek")
+
+if e_twilek.size() > 0:
+    e_twilek.show()
+else:
+    print("no ahi nadie de la especie Twi'lek")
+
+print()
+# e) listar todos los Jedi que comienzan con A;
+
+lista_p.filter_start_with(("A"))
+lista_p.show()
+print()
+
+# f) mostrar los Jedi que usaron sable de luz de más de un color;
+def jedi_sable(lista_p : List):
+    aux = List()
+    for pj in lista_p:
+        if pj.lightsaber_color and "/" in pj.lightsaber_color:
+            aux.append(pj)
+    return aux
+print()
+j_sable = jedi_sable(lista_p)
+print("los personajes que tienen mas de dos sables de luz:")
 
 
 
+if j_sable.size() > 0 :
+    j_sable.show()
+else:
+    print("no ahi personaje que tenga mas de dos sables")
+
+print()
+
+
+# g) indicar los Jedi que utilizaron sable de luz amarillo o violeta;
+def sable_color(lista_p : List):
+    aux = List()
+    for pj in lista_p:
+        if pj.lightsaber_color is not None:
+            if "Yellow" in pj.lightsaber_color or "Purple" in pj.lightsaber_color:
+                aux.append(pj)
+    return aux
+
+print()
+print("lista de jedi que tiene un sable amarillo o violeta:")
+
+sable_A_V = sable_color(lista_p)
+
+if sable_A_V.size() > 0 :
+    sable_A_V.show()
+else:
+    print("ninguno tiene un sable de color amarillo o violeta")
+
+print()
+
+
+# h) indicar los nombre de los padawans de Qui-Gon Jin y Mace Windu, si los tuvieron.
+
+
+padawan_quigon = mostrar_aprendices(lista_p,"Qui-Gon Jinn") 
+
+print("nombre de los padawans de Qui-Gon Jin")
+padawan_quigon.show()
+if padawan_quigon.size() > 0 :
+    padawan_quigon.show()
+else:
+    print("no se encontro ")
+    
+print()
+print("nombre de los padawans de Mace Windu")
+padawan_mace = mostrar_aprendices(lista_p,"Mace Windu")
+if padawan_mace.size() > 0 :
+    padawan_mace.show()
+else:
+    print("no se encontro ningun padawan")
+
+print()
+
+# i) Mostrar todos los Jedi que tengan el ranking de Grand Master.
+
+def clas_master(lista_p : List,ranking):
+    aux = List()
+    for pj in lista_p:
+        if pj.rank == ranking:
+            aux.append(pj)
+        
+    return aux
+
+maestro = clas_master(lista_p,"Grand Master")
+print("lista de jedis con el ranking de Grand Master")
+print()
+
+if maestro.size() > 0 :
+    maestro.show()
+else:
+    print("ninguno tiene el ranking de Grand Master")
 
 
 
