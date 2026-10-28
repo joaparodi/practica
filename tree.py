@@ -512,25 +512,30 @@ class BinaryTree():
         if self.root is None:
             return niveles
 
-        queue = Queue()
-        # Guardamos la tupla (nodo, nivel) y la prioridad 0
-        queue.arrive((self.root, 0), 0)
+        aux = HeapMin()
+        # Guardamos la tupla (nodo_actual, nivel_actual) pero el HeapMin 
+        # evalúa por la prioridad numérica que le pasamos como segundo argumento.
+        # Para evitar que el heap compare nodos, pasamos una tupla donde la prioridad 
+        # numérica va primera o usamos una estructura totalmente plana.
+        
+        # O mejor aún, guardemos solo el valor y las referencias en una clase o tupla segura:
+        # Estructura en el heap: [prioridad, nivel, valor_del_nodo, referencia_izq, referencia_der]
+        
+        aux.arrive((self.root.value, self.root.left, self.root.right, 0), 0)
 
-        while queue.size() > 0:
-            # attention() devuelve [prioridad, (nodo, nivel)]
-            prioridad, (nodo_actual, nivel_actual) = queue.attention()
+        while aux.size() > 0:
+            prioridad, (valor, left, right, nivel_actual) = aux.attention()
 
             while len(niveles) <= nivel_actual:
                 niveles.append([])
 
-            niveles[nivel_actual].append(nodo_actual.value)
+            niveles[nivel_actual].append(valor)
 
-            # Encolamos los hijos pasando (nodo, nivel + 1) y el nivel como prioridad
-            if nodo_actual.left is not None:
-                queue.arrive((nodo_actual.left, nivel_actual + 1), nivel_actual + 1)
+            if left is not None:
+                aux.arrive((left.value, left.left, left.right, nivel_actual + 1), nivel_actual + 1)
 
-            if nodo_actual.right is not None:
-                queue.arrive((nodo_actual.right, nivel_actual + 1), nivel_actual + 1)
+            if right is not None:
+                aux.arrive((right.value, right.left, right.right, nivel_actual + 1), nivel_actual + 1)
 
         return niveles
     
