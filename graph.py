@@ -1,8 +1,9 @@
 from typing import Any, Optional
 from list_ import List
-from queue_ import Queue
+from queue import Queue
 from stack import Stack
 from heap import HeapMin
+from random import randint
 
 
 
@@ -240,77 +241,110 @@ class Graph(List):
         result = __exist_path(self, origin, destination)
         return result
 
-g = Graph(is_dir=False)
+    # ejercicio de practica punto 1
+    
+    def cargar_grafo(self):
+        # Usamos un while para garantizar que sean exactamente 15 vértices únicos
+        while len(self) < 15:
+            vertice = randint(1, 100)
+            # Verificamos que no exista previamente en el grafo
+            if self.search(vertice, 'value') is None:
+                self.add_vertex(vertice)
+
+    def cargar_aristas(self):
+        aristas_creadas = set()  # Usamos un conjunto para evitar aristas repetidas
+        
+        while len(aristas_creadas) < 30:
+            # Seleccionamos un origen y un destino aleatorios de los vértices existentes
+            origen = self[randint(0, len(self) - 1)].value
+            destino = self[randint(0, len(self) - 1)].value
+            
+            # Controlamos que la arista (origen -> destino) no haya sido creada antes
+            if (origen, destino) not in aristas_creadas:
+                aristas_creadas.add((origen, destino))
+                peso = randint(1, 100)
+                self.add_edge(peso, origen, destino)
+
+    
+    #A
+    def delete_sin_aristas(self):
+        aux = []
+        cont = 0
+        for vertex in self:
+            if len(vertex.edges) == 0:
+                aux.append(vertex.value)
+        for value in aux:
+            self.delete_vertex(value)
+            cont+=1
+
+        return cont
+    
+    
+    #B
+    def nodos_mayor_aristas_salida(self):
+        max_aristas = 0
+        nodos_max = []
+    
+        for vertice in self :
+            cantidad_aristas = len(vertice.edges)
+            if cantidad_aristas > max_aristas:
+                max_aristas = cantidad_aristas
+                nodos_max = [vertice.value]
+            elif cantidad_aristas == max_aristas:
+                nodos_max.append(vertice.value)
+    
+        return nodos_max, max_aristas
+    
+    #c
+    def nodos_mayor_aristas_llegada(self):
+        max_aristas = 0
+        nodos_max = []
+    
+        for vertice in self:
+            contador = 0
+            # Buscamos en todo el grafo cuántas veces apunta hacia este vértice
+            for v in self:
+                for edge in v.edges:
+                    if edge.destination == vertice.value:
+                        contador += 1
+        
+            # Aplicamos exactamente tu misma lógica de comparación
+            if contador > max_aristas:
+                max_aristas = contador
+                nodos_max = [vertice.value]
+            elif contador == max_aristas:
+                nodos_max.append(vertice.value)
+            
+        return nodos_max, max_aristas
+    
+    #D
+    
+    def nodos_sin_aristas_llegada(self):
+        # Recolectamos todos los destinos que sí reciben al menos una arista
+        destinos_con_llegada = set()
+        for vertice in self:
+            for edge in vertice.edges:
+                destinos_con_llegada.add(edge.destination)
+            
+        # Buscamos qué vértices del grafo NO están en ese conjunto de llegadas
+        nodos_aislados_llegada = List()
+        for vertice in self:
+            if vertice.value not in destinos_con_llegada:
+                nodos_aislados_llegada.append(vertice.value)
+            
+        return nodos_aislados_llegada
 
 
-
-g.add_vertex('T')
-g.add_vertex('Z')
-g.add_vertex('X')
-g.add_vertex('R')
-g.add_vertex('F')
-# g.add_vertex(1)
-# g.add_vertex(10)
-
-
-g.add_edge(6, 'T', 'X')
-g.add_edge(3, 'T', 'F')
-g.add_edge(8, 'T', 'R')
-g.add_edge(2, 'F', 'X')
-g.add_edge(2, 'F', 'R')
-g.add_edge(5, 'X', 'R')
-g.add_edge(9, 'X', 'Z')
-g.add_edge(4, 'R', 'Z')
-# g.add_edge(10, 3, 1)
-# g.add_edge(2, 10, 10)
-# g.add_edge(7, 4, 1)
-
-
-# g.show()
-# print()
-# print('eliminado', g.delete_edge(4, 3))
-# print()
-# g.show()
-
-# print()
-# print(g.delete_vertex(1))
-# print()
-
-# g.amplitude_show('A')
-
-# print()
-
-# g.amplitude_show('C') 
-
-
-exist_path = g.exist_path('T', 'C')
-
-if exist_path:
-    paths = g.dijkstra('T')
-
-    destination = 'Z'
-
-    peso_total = None
-
-    camino_completo = []
-
-    while paths.size() > 0:
-        value = paths.pop()
-        if value[0] == destination:
-            if peso_total is None:
-                peso_total = value[1]
-            camino_completo.append(value[0])
-            destination = value[2]
-    camino_completo.reverse()
-    print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
-
-print()
-min_tree = g.kruskal('T')
-
-print(min_tree)
-peso_total = 0
-for edge in min_tree.split(';'):
-    origin, destination, weight = edge.split('-')
-    print(f'origin {origin} destination {destination}')
-    peso_total += int(weight)
-print(f'peso total: {peso_total}')
+    #E
+    def cont_vert(self):
+        cont = 0
+    
+        for vertex in self:
+            if vertex is not None:
+                cont += 1
+    
+        return cont
+    
+    
+    
+    
