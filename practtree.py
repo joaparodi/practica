@@ -1,7 +1,7 @@
-from tree import BinaryTree
+from tree1 import BinaryTree
 from random import randint
 from queue import Queue
-from tree import Node
+from tree1 import Node
 
 # 1. Desarrollar un algoritmo que permita cargar 1000 número enteros –generados de manera aleatoria– que resuelva las siguientes actividades:
 # a. realizar los barridos preorden, inorden, postorden y por nivel sobre el árbol generado;

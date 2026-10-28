@@ -1,7 +1,6 @@
-
 from typing import Any, Optional
 
-from queue import Queue
+from queue_ import Queue
 class Node():
 
     def __init__(self, value=None, other_values=None):
@@ -94,6 +93,9 @@ class BinaryTree():
                         # input()
                         root.left, aux = __replace(root.left)
                         root.value = aux.value
+
+            root = self.auto_balance(root)
+            self.update_height(root)
             return root, x, other_value
 
         other_value = None
@@ -165,7 +167,7 @@ class BinaryTree():
                 # print(f'anda a la izquierda de {root.value}')
                 __inorden(root.left)
             # print(f'procesa nodo actual')
-            print(root.value)
+            print(root.value, root.height)
             if root.right is not None:
                 # print(f'anda a a derecha de {root.value}')
                 __inorden(root.right)
@@ -275,97 +277,277 @@ class BinaryTree():
         count = __count_heroes(self.root)
         return count
 
+    #funciones usadas en el ejercicio 5
+
+    def inorden_villain(self) -> None:
+        
+        def __inorden_villain(root):
+            if root.left is not None:
+                __inorden_villain(root.left)
+            if root.other_values['is_villain']:
+                print(root.value)
+            if root.right is not None:
+                __inorden_villain(root.right)
+
+    def postorden_hero(self):
     
-    def insert_node_expresion(self, value: Any, other_value=None) -> None:
+        def __postorden_hero(root):
+            if root.right is not None:
+                __postorden_hero(root.right)
+            if not root.other_values['is_villain']:
+                print(root.value)
+            if root.left is not None:
+                __postorden_hero(root.left)
+
+        __postorden_hero(self.root)
+
+    def inorden_hero_star_with(self, prefix: str) -> None:
+        
+        def __inorden_hero_star_with(root, prefix):
+            if root.left is not None:
+                __inorden_hero_star_with(root.left, prefix)
+            if root.value.startswith(prefix) and not root.other_values['is_villain']:
+                print(root.value)
+            if root.right is not None:
+                __inorden_hero_star_with(root.right, prefix)
+
+        __inorden_hero_star_with(self.root, prefix)
+
+    def proxy_search(self, prefix: str) -> None:
+        
+        def __proxy_search(root, prefix):
+            if root.left is not None:
+                __proxy_search(root.left, prefix)
+            if prefix in root.value.lower():
+                print(f"Encontrado: {root.value} | Datos: {root.other_values}")
+                print(root.value)
+            if root.right is not None:
+                __proxy_search(root.right, prefix)
+
+        __proxy_search(self.root, prefix)
+
+    def count_heroes(self) -> None:
+        def __count_heroes(root):
+            count = 0
+            if root is not None:
+                if root.left is not None:
+                    count += __count_heroes(root.left)
+                if not root.other_values['is_villain']:
+                    count += 1
+                if root.right is not None:
+                    count += __count_heroes(root.right)
+            return count
+
+        count = __count_heroes(self.root)
+        return count
+
+
+
+
+
+    def count_villian(self) -> None:
+            def __count_villian(root):
+                count = 0
+                if root is not None:
+                    if root.left is not None:
+                        count += __count_villian(root.left)
+                    if  root.other_values['is_villain']:
+                        count += 1
+                    if root.right is not None:
+                        count += __count_villian(root.right)
+                return count
+    
+            count = __count_villian(self.root)
+            return count
+
+
+
+    
+    def generar_bosque(self):
         """
-        Inserta un nodo recursivamente alternando entre izquierda y derecha
-        sin realizar ningún tipo de auto-balanceo (sin AVL).
+        Recorre el árbol original y genera un bosque separando 
+        a los héroes y villanos en dos árboles independientes.
         """
-        def __insert_node_expresion(root, value, other_value=None):
-            if root is None:
-                return Node(value, other_value)
-            
-            # Decide la rama comparando la altura de los subárboles:
-            # Si el lado izquierdo es menor o igual, va a la izquierda. Si no, a la derecha.
-            if self.height(root.left) <= self.height(root.right):
-                root.left = __insert_node_expresion(root.left, value, other_value)
-            else:
-                root.right = __insert_node_expresion(root.right, value, other_value)
-            
-            # Mantiene la altura actualizada pero SIN llamar a self.auto_balance(root)
-            self.update_height(root)
-            return root
-            
-        self.root = __insert_node_expresion(self.root, value, other_value)
+        arbol_heroes = BinaryTree()
+        arbol_villanos = BinaryTree()
+
+        def __recorrer_y_separar(root):
+            if root is not None:
+                if root.left is not None:
+                    __recorrer_y_separar(root.left)
+                
+                # Usamos tu condición del diccionario
+                if root.other_values.get('is_villain'):
+                    arbol_villanos.insert_node(root.value, root.other_values)
+                else:
+                    arbol_heroes.insert_node(root.value, root.other_values)
+                    
+                if root.right is not None:
+                    __recorrer_y_separar(root.right)
+
+        __recorrer_y_separar(self.root)
+        
+        # Retorna ambos árboles ya armados (el bosque)
+        return arbol_heroes, arbol_villanos
+
+
+
+    #funciones usadas en el ejercicio 23
+
+    def inorden_criaturas_y_asesinos(self) -> None:
+            def __inorden(root):
+                if root is not None:
+                    __inorden(root.left)
+                    # Accedemos directamente a los atributos del objeto Criatura
+                    print(f"Criatura: {root.other_values.name} --> Derrotado por: {root.other_values.killer}")
+                    __inorden(root.right)
+            __inorden(self.root)
+
+    def cargar_des(self) -> None:
+        def __cargar(root):
+            if root is not None:
+                __cargar(root.left)
+                print(f"agrega descripcion de :{root.value}")
+                res =input("Descripcion:")
+                root.other_values.description = res
+                __cargar(root.right)  
+
+        __cargar(self.root)
+
+
+    def derrotadores_criaturas(self) -> list:
+        derrotadores = {}
+
+        def contar_derrotadores(root):
+            if root is not None:
+            # .strip() elimina espacios sobrantes alrededor del texto
+                derrotador = root.other_values.killer.strip() if root.other_values.killer else None
+
+                # Filtra que exista, que no sea vacio, ni guion, ni None
+                if derrotador and derrotador not in ["-", "", "None", "none"]:
+                    if derrotador in derrotadores:
+                        derrotadores[derrotador] += 1
+                    else:
+                        derrotadores[derrotador] = 1
+
+                contar_derrotadores(root.left)
+                contar_derrotadores(root.right)
+
+        contar_derrotadores(self.root)
+
+        # Ordena de mayor a menor y toma los primeros 3 del ranking
+        top_3_derrotadores = sorted(derrotadores.items(), key=lambda x: x[1], reverse=True)[:3]
+        return top_3_derrotadores
+
+    def criaturas_derrotadas_por(self, nombre_heroe) -> list:
+        derrotadas = []
+
+        def buscar_killer(root):
+            if root is not None:
+                if root.other_values.killer == nombre_heroe:
+                    derrotadas.append(root.other_values.name)
+                buscar_killer(root.left)
+                buscar_killer(root.right)
+
+        buscar_killer(self.root)
+        return derrotadas
     
+    def criaturas_no_derrotadas(self) -> list:
+        no_derrotadas = []
+
+        def buscar_no_derrotadas(root):
+            if root is not None:
+                if root.other_values.killer in ["-", "", "None", "none"]:
+                    no_derrotadas.append(root.other_values.name)
+                buscar_no_derrotadas(root.left)
+                buscar_no_derrotadas(root.right)
+
+        buscar_no_derrotadas(self.root)
+        return no_derrotadas
+
+
+    def mostrar_capturadores(self):
     
+        def __mostrar(root):
+            if root is not None:
+                # 1. Recorrer subárbol izquierdo
+                __mostrar(root.left)
+            
+                # 2. Imprimir el nodo actual y su campo capturada
+                capturado = root.other_values.captured if root.other_values and root.other_values.captured else "-"
+                print(f"Criatura: {root.value} --> Capturada por: {capturado}")
+            
+            # 3. Recorrer subárbol derecho
+                __mostrar(root.right)
+
+    # Iniciar el recorrido desde la raíz del árbol
+        __mostrar(self.root)
+
+
+
+    def buscar_por_coincidencia(self, termino_busqueda: str) -> list:
+        coincidencias = []
+        termino = termino_busqueda.lower().strip()
+
+        def __b_concidencia(root):
+            if root is not None:
+                # 1. Recorrer el hijo izquierdo si existe
+                if root.left is not None:
+                    __b_concidencia(root.left)
+            
+                # 2. Procesar el nodo actual: verificar coincidencia
+                if termino in str(root.value).lower():
+                    coincidencias.append(root)
+            
+                # 3. Recorrer el hijo derecho si existe
+                if root.right is not None:
+                    __b_concidencia(root.right)
+
+        # Iniciar el recorrido desde la raíz del árbol
+        __b_concidencia(self.root)
+        return coincidencias
+
+    def list_nivel(self) -> list:
+        niveles = []
+        if self.root is None:
+            return niveles
+
+        queue = Queue()
+        # Guardamos la tupla (nodo, nivel) y la prioridad 0
+        queue.arrive((self.root, 0), 0)
+
+        while queue.size() > 0:
+            # attention() devuelve [prioridad, (nodo, nivel)]
+            prioridad, (nodo_actual, nivel_actual) = queue.attention()
+
+            while len(niveles) <= nivel_actual:
+                niveles.append([])
+
+            niveles[nivel_actual].append(nodo_actual.value)
+
+            # Encolamos los hijos pasando (nodo, nivel + 1) y el nivel como prioridad
+            if nodo_actual.left is not None:
+                queue.arrive((nodo_actual.left, nivel_actual + 1), nivel_actual + 1)
+
+            if nodo_actual.right is not None:
+                queue.arrive((nodo_actual.right, nivel_actual + 1), nivel_actual + 1)
+
+        return niveles
     
-# class Persona:
+    def buscar_criaturas_por_capturador(self, capturador: str = "Heracles") -> list:
+        def buscar_capturador(root):
+            capturadas = []
+            if root is not None:
+                if root.left is not None:
+                    capturadas += buscar_capturador(root.left)
 
-#     def __init__(self, nom, ape, dni):
-#         self.nom = nom
-#         self.ape = ape
-#         self.dni = dni
+                if root.other_values.captured == capturador:
+                    capturadas.append(root.value)
 
-#     def __str__(self):
-#         return f"{self.ape} {self.nom} {self.dni}"
+                if root.right is not None:
+                    capturadas += buscar_capturador(root.right)
 
-# arbol = BinaryTree()
-# arbol_ape = BinaryTree()
+            return capturadas
 
-# p1 = Persona('Pepito', 'Gonzalez', 23)
-# p2 = Persona('Pepito', 'Perez', 24)
-# p3 = Persona('Pepito', 'Garcia', 25)
-# p4 = Persona('Pepito', 'Casanova', 26)
-
-# arbol.insert_node(p1.dni, p1)
-# arbol.insert_node(p2.dni, p2)
-# arbol.insert_node(p3.dni, p3)
-# arbol.insert_node(p4.dni, p4)
-
-# arbol_ape.insert_node(p1.ape, p1)
-# arbol_ape.insert_node(p2.ape, p2)
-# arbol_ape.insert_node(p3.ape, p3)
-# arbol_ape.insert_node(p4.ape, p4)
-# arbol.insert_node('B')
-# arbol.insert_node('W')
-# arbol.insert_node('V')
-# arbol.insert_node('F')
-# arbol.insert_node('P')
-# arbol.insert_node('R')
-# for i in range (1, 13):
-#     arbol.insert_node(i)
-
-# arbol.inorden()
-# print()
-# arbol.root = arbol.auto_balance(arbol.root)
-
-
-# arbol.by_level()
-
-# print(arbol.root.right.left.value)
-
-# arbol.preorden()
-
-
-
-            #                                     8
-            #                 4                                               10
-            #     2                       6                       9                      11
-            # 1       3               5       7                                               12
-# print()
-# print('eliminar', arbol.delete_node('F'))
-# print()
-# arbol.inorden()
-
-# aux = arbol.search(26)
-# if aux is not None:
-#     print(f'valor encontrado {aux.other_values}')
-# else:
-#     print('no encontrado')
-
-# aux = arbol_ape.search('Gonzalez')
-# if aux is not None:
-#     print(f'valor encontrado {aux.other_values}')
-# else:
-#     print('no encontrado')
+        return buscar_capturador(self.root)
+    
