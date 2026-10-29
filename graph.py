@@ -118,7 +118,7 @@ class Graph(List):
         
         _deep_show(origin)
 
-    def amplitude_show(self, origin) -> None:
+    def amplitude_show(self, origin) -> None:#hace un barrido ampio
         for vertex in self:
             vertex.visited = False
     
@@ -172,7 +172,7 @@ class Graph(List):
         return path                    
 
 
-    def kruskal(self, origin_vertex):
+    def kruskal(self, origin_vertex):#expansion minima
         def search_in_forest(forest, value):
             for index, tree in enumerate(forest):
                 if value in tree:
@@ -185,9 +185,9 @@ class Graph(List):
             for edge in vertex.edges:
                 edges.arrive([vertex.value, edge.destination], edge.weight)
 
-        # print(forest)
-        # for element in edges.elements:
-        #     print(element )
+        print(forest)
+        for element in edges.elements:
+            print(element )
         
         while len(forest) > 1 and edges.size() > 0:
             edge = edges.attention()

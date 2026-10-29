@@ -20,13 +20,13 @@ from list_ import List
 # g. determinar la arista más larga, indicando su origen, destino y valor –puede ser más de una.
 
 
-grafo = Graph(is_dir=True)
+# grafo = Graph(is_dir=True)
 
 #cargar el grafo con vértices y aristas
-grafo.cargar_grafo()
-grafo.cargar_aristas()
+# grafo.cargar_grafo()
+# grafo.cargar_aristas()
 
-grafo.show()
+# grafo.show()
 
 # A
 
@@ -89,13 +89,69 @@ print()
 
 # G
 
-mas_larga, max_peso = grafo.arista_mas_larga()
+# mas_larga, max_peso = grafo.arista_mas_larga()
 
-if max_peso is not None:
-    print(f"La o las aristas más largas tienen un peso de {max_peso}:")
-    for origen, destino, peso in mas_larga:
-        print(f" - Desde el nodo {origen} hacia el nodo {destino}")
-else:
-    print("El grafo no tiene aristas.")
+# if max_peso is not None:
+#     print(f"La o las aristas más largas tienen un peso de {max_peso}:")
+#     for origen, destino, peso in mas_larga:
+#         print(f" - Desde el nodo {origen} hacia el nodo {destino}")
+# else:
+#     print("El grafo no tiene aristas.")
+
+
+
+
+
+
+# 2. Sobre el siguiente dígrafo implementar los algoritmos necesarios para resolver las tareas que
+# se presentan a continuación:
+# a. represéntelo como arreglo de listas de adyacencias y lista de listas de adyacencia;
+# b. cargue el valor de las etiquetas de todas las aristas;
+# c. encuentre el árbol de expansión mínima, para este punto considere el grafo como no dirigido;
+# d. agregue un arco de E hasta C;
+# e. encuentre el camino más corto de A hasta D.
+
+grafo = Graph(is_dir=True)
+
+def cargar_grafo(grafo):
+    # 1. Agregamos los vértices del grafo
+    nodos = ['A', 'B', 'C', 'D', 'E']
+    for nodo in nodos:
+        grafo.add_vertex(nodo)
+        
+    # 2. Cargamos las aristas respetando el orden: (weight, origin, destination)
+    grafo.add_edge(4, 'A', 'B')
+    grafo.add_edge(2, 'A', 'C')
+    grafo.add_edge(5, 'A', 'E')
+    
+    grafo.add_edge(1, 'B', 'C')
+    grafo.add_edge(6, 'B', 'E') # La arista larga que pasa por arriba
+    
+    grafo.add_edge(1, 'C', 'B') # La vuelta de C a B
+    grafo.add_edge(3, 'C', 'D')
+    
+    # grafo.add_edge(2, 'D', 'D') # El ciclo directo (bucle) en D (descomentar si lo pide la consigna)
+    
+    grafo.add_edge(4, 'E', 'D')
+
+
+cargar_grafo(grafo)
+
+grafo.show()
+
+# C
+
+min_tree = grafo.kruskal("A")
+
+print(min_tree)
+peso_total = 0
+for edge in min_tree.split(';'):
+    origin, destination, weight = edge.split('-')
+    print(f'origin {origin} destination {destination}')
+    peso_total += int(weight)
+
+print(f"\nEl peso total del Árbol de Expansión Mínima es: {peso_total}")
+
+
 
 
