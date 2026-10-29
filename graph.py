@@ -345,6 +345,87 @@ class Graph(List):
     
         return cont
     
+    #F
+    
+    def vertices_con_ciclo_directo(self):
+        contador_vertices = 0
+        verte = []
+        for vertex in self:
+            # Revisamos cada arista que SALE de este vértice
+            tiene_lazo = False
+            for edge in vertex.edges:
+                # Si el destino de la arista es igual al valor del propio vértice, hay un ciclo directo
+                if edge.destination == vertex.value:
+                    verte.append(vertex.value)
+                    break # Con que encontremos uno, ya sabemos que este vértice cumple
+            
+            contador_vertices = len(verte)
+                
+        return verte , contador_vertices
+    
+    #G
+    
+    def arista_mas_larga(self):
+        max_peso = None
+        aristas_max = []
+        
+        for vertex in self:
+            for edge in vertex.edges:
+                # Si es la primera arista que vemos o encontramos una con mayor peso
+                if max_peso is None or edge.weight > max_peso:
+                    max_peso = edge.weight
+                    # Guardamos una tupla con (origen, destino, peso)
+                    aristas_max = [(vertex.value, edge.destination, edge.weight)]
+                # Si empata con el peso máximo actual, la agregamos a la lista
+                elif edge.weight == max_peso:
+                    aristas_max.append((vertex.value, edge.destination, edge.weight))
+                    
+        return aristas_max, max_peso
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

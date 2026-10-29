@@ -79,12 +79,23 @@ print()
 
 # F
 
+# vert, reflexivo = grafo.vertices_con_ciclo_directo()
+# if reflexivo is not None:
+#     print(f"las vertice que son reflexiva son en total: {reflexivo} y son: {vert}")
+# else:
+#     print("no hay ningun vertice que sea reflexivo")
 
 
 
+# G
 
+mas_larga, max_peso = grafo.arista_mas_larga()
 
-
-
+if max_peso is not None:
+    print(f"La o las aristas más largas tienen un peso de {max_peso}:")
+    for origen, destino, peso in mas_larga:
+        print(f" - Desde el nodo {origen} hacia el nodo {destino}")
+else:
+    print("El grafo no tiene aristas.")
 
 
