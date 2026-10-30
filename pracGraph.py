@@ -111,46 +111,164 @@ print()
 # d. agregue un arco de E hasta C;
 # e. encuentre el camino más corto de A hasta D.
 
-grafo = Graph(is_dir=True)
+# grafo = Graph(is_dir=True)
 
-def cargar_grafo(grafo):
-    # 1. Agregamos los vértices del grafo
-    nodos = ['A', 'B', 'C', 'D', 'E']
-    for nodo in nodos:
-        grafo.add_vertex(nodo)
+# def cargar_grafo(grafo):
+#     # 1. Agregamos los vértices del grafo
+#     nodos = ['A', 'B', 'C', 'D', 'E']
+#     for nodo in nodos:
+#         grafo.add_vertex(nodo)
         
-    # 2. Cargamos las aristas respetando el orden: (weight, origin, destination)
-    grafo.add_edge(4, 'A', 'B')
-    grafo.add_edge(2, 'A', 'C')
-    grafo.add_edge(5, 'A', 'E')
+#     # 2. Cargamos las aristas respetando el orden: (weight, origin, destination)
+#     grafo.add_edge(4, 'A', 'B')
+#     grafo.add_edge(2, 'A', 'C')
+#     grafo.add_edge(5, 'A', 'E')
     
-    grafo.add_edge(1, 'B', 'C')
-    grafo.add_edge(6, 'B', 'E') # La arista larga que pasa por arriba
+#     grafo.add_edge(1, 'B', 'C')
+#     grafo.add_edge(6, 'B', 'E') # La arista larga que pasa por arriba
     
-    grafo.add_edge(1, 'C', 'B') # La vuelta de C a B
-    grafo.add_edge(3, 'C', 'D')
+#     grafo.add_edge(1, 'C', 'B') # La vuelta de C a B
+#     grafo.add_edge(3, 'C', 'D')
     
-    # grafo.add_edge(2, 'D', 'D') # El ciclo directo (bucle) en D (descomentar si lo pide la consigna)
+#     # grafo.add_edge(2, 'D', 'D') # El ciclo directo (bucle) en D (descomentar si lo pide la consigna)
     
-    grafo.add_edge(4, 'E', 'D')
+#     grafo.add_edge(4, 'E', 'D')
 
 
-cargar_grafo(grafo)
+# cargar_grafo(grafo)
 
-grafo.show()
+# grafo.show()
 
 # C
 
-min_tree = grafo.kruskal("C")
+# min_tree = grafo.kruskal("C")
 
-print(min_tree)
-peso_total = 0
-for edge in min_tree.split(';'):
-    origin, destination, weight = edge.split('-')
-    print(f'origin {origin} destination {destination}')
-    peso_total += int(weight)
+# print(min_tree)
+# peso_total = 0
+# for edge in min_tree.split(';'):
+#     origin, destination, weight = edge.split('-')
+#     print(f'origin {origin} destination {destination}')
+#     peso_total += int(weight)
 
-print(f"\nEl peso total del Árbol de Expansión Mínima es: {peso_total}")
+# print(f"\nEl peso total del Árbol de Expansión Mínima es: {peso_total}")
+
+
+
+
+# D
+
+# grafo.add_edge(2,"E","C")
+
+# print()
+# grafo.show()
+
+
+
+# E
+
+
+# exist_path = grafo.exist_path('A', 'D')
+
+# if exist_path:
+#     paths = grafo.dijkstra('A')#lugar del que parto
+
+#     destination = 'D'#lugar al que quiero llegar
+
+#     peso_total = None
+
+#     camino_completo = []
+
+#     while paths.size() > 0:
+#         value = paths.pop()
+#         if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
+#             if peso_total is None:
+#                 peso_total = value[1]  # Guarda el peso total acumulado
+#             camino_completo.append(value[0])  # Agrega el nodo al camino
+#             destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
+#     camino_completo.reverse()
+#     print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
+    
+    
+
+# 3. Implementar un grafo no dirigido que permita cargar puertos y las aristas que conecten dichos puertos, que permita resolver las siguientes tareas:
+# a. cada arista debe tener la distancia que separa dichos puertos;
+# b. realizar un barrido en profundidad desde el primer puerto en el grafo;
+# c. determinar el camino más corto desde puerto Madero al puerto de Rodas;
+# d. determinar el puerto con mayor número de aristas y eliminarlo.
+
+grafo = Graph(is_dir=False)
+
+
+oringin = ["Puerto Madero", "Puerto de Rodas", "Puerto La Plata", "Mar del Plata"]
+
+# Lista de aristas: (Origen, Destino, Distancia)
+edges = [
+    ("Puerto Madero", "Puerto La Plata", 50),
+    ("Puerto La Plata", "Mar del Plata", 400),
+    ("Puerto Madero", "Puerto de Rodas", 1200)
+]
+
+
+def cargar_grafo_aris(grafo : Graph , oringin : list  , edges : list):
+    
+    for ori in oringin:
+        grafo.add_vertex(ori)
+        
+    
+    for origen, destino, distancia in edges:
+         grafo.add_edge(distancia, origen, destino)
+
+cargar_grafo_aris(grafo,oringin,edges)
+
+grafo.show()
+
+print()
+
+# B
+grafo.deep_show("Puerto Madero")
+
+print()
+
+# C
+
+exist_path = grafo.exist_path('Puerto Madero', 'Puerto de Rodas')
+
+if exist_path:
+    paths = grafo.dijkstra('Puerto Madero')#lugar del que parto
+
+    destination = 'Puerto de Rodas'#lugar al que quiero llegar
+
+    peso_total = None
+
+    camino_completo = []
+
+    while paths.size() > 0:
+        value = paths.pop()
+        if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
+            if peso_total is None:
+                peso_total = value[1]  # Guarda el peso total acumulado
+            camino_completo.append(value[0])  # Agrega el nodo al camino
+            destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
+    camino_completo.reverse()
+    print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
+
+
+
+# D
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

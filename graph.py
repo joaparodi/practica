@@ -100,7 +100,7 @@ class Graph(List):
                 for edge in vertex.edges:
                     print(edge)
 
-    def deep_show(self, origin) -> None:
+    def deep_show(self, origin) -> None:#barrido en profundidad
 
         def _deep_show(origin) -> None:
             pos_origin = self.search(origin, 'value')
