@@ -178,12 +178,12 @@ class Graph(List):
                 if value in tree:
                     return index
                 
-        forest = []
+        forest = []#agrega los vertices
         edges = HeapMin()
         for vertex in self:
             forest.append(vertex.value)
             for edge in vertex.edges:
-                edges.arrive([vertex.value, edge.destination], edge.weight)
+                edges.arrive([vertex.value, edge.destination], edge.weight)#value es el origen
 
         print(forest)
         for element in edges.elements:
@@ -194,9 +194,9 @@ class Graph(List):
             origin = search_in_forest(forest, edge[1][0])# vertice del origen vertex.value/busca en el bosque
             destination = search_in_forest(forest, edge[1][1])# vertice destino edge.destination
             if origin is not None and destination is not None:
-                if origin != destination:# compara si estan en dististas islas
+                if origin != destination:# compara si estan en dististas islas [A,B].A es el origen y B el destino
                     if origin > destination:
-                        vertex_origin = forest.pop(origin)
+                        vertex_origin = forest.pop(origin)#saca los valores 
                         vertex_destination = forest.pop(destination)
                     else:
                         vertex_destination = forest.pop(destination)
@@ -212,7 +212,7 @@ class Graph(List):
                     else:
                         forest.append(vertex_origin+';'+vertex_destination+';'+f'{edge[1][0]}-{edge[1][1]}-{edge[0]}')
         
-        from_vertex = search_in_forest(forest, origin_vertex)
+        from_vertex = search_in_forest(forest, origin_vertex)#llama para ver en que posicion quedo el nodo que llame
         
         return forest[from_vertex] if from_vertex is not None else forest
 

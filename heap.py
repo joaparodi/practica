@@ -72,7 +72,7 @@ class HeapMax():
 
         return result
 
-class HeapMin():
+class HeapMin():#ordena de mas barata a mas cara
 
     def __init__(self):
         self.elements = []
