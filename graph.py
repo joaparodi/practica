@@ -190,11 +190,11 @@ class Graph(List):
             print(element )
         
         while len(forest) > 1 and edges.size() > 0:
-            edge = edges.attention()
-            origin = search_in_forest(forest, edge[1][0])
-            destination = search_in_forest(forest, edge[1][1])
+            edge = edges.attention()# devuelve el primero de la tabla
+            origin = search_in_forest(forest, edge[1][0])# vertice del origen vertex.value/busca en el bosque
+            destination = search_in_forest(forest, edge[1][1])# vertice destino edge.destination
             if origin is not None and destination is not None:
-                if origin != destination:
+                if origin != destination:# compara si estan en dististas islas
                     if origin > destination:
                         vertex_origin = forest.pop(origin)
                         vertex_destination = forest.pop(destination)

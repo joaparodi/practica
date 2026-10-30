@@ -141,7 +141,7 @@ grafo.show()
 
 # C
 
-min_tree = grafo.kruskal("A")
+min_tree = grafo.kruskal("C")
 
 print(min_tree)
 peso_total = 0
