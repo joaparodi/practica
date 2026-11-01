@@ -262,8 +262,7 @@ print(f"b. Resultado: {resultado}")
 
 
 # 3. Desarrollar un algoritmo que permita cargar el índice del libro Ingeniería de Software de Ian Summerville de manera automática desde un archivo de texto, transformando el árbol n-ario
-# del índice en un árbol binario no balanceado mediante el uso de la transformada de Knuth,
-# para resolver las siguientes actividades:
+# del índice en un árbol binario no balanceado mediante el uso de la transformada de Knuth,para resolver las siguientes actividades:
 # a. listar el índice en su orden original;
 # b. mostrar la parte del índice correspondiente al subtitulo “Diseño de software
 # de tiempo real”;
@@ -272,7 +271,24 @@ print(f"b. Resultado: {resultado}")
 # e. determinar todos los temas que contengan las palabras modelo y métrica.
 
 
-
-
+indice_libro = [
+    # (value, other_values -> (pagina, nivel))
+    ("Capítulo 1: Introducción a la ingeniería de software", (1, 1)),
+    ("1.1. Procesos de software", (15, 2)),
+    ("1.1.1. Modelo en cascada", (18, 3)),
+    ("1.1.2. Modelos evolutivos", (22, 3)),
+    ("1.2. Métrica y calidad de software", (35, 2)),
+    
+    ("Capítulo 2: Gestión de proyectos", (45, 1)),
+    ("2.1. Planificación de proyectos", (48, 2)),
+    ("2.1.1. Estimación de costos", (52, 3)),
+    
+    ("Capítulo 11: Arquitecturas de sistemas", (250, 1)),
+    ("11.1. Diseño de software de tiempo real", (275, 2)),
+    ("11.1.1. Sistemas embebidos", (280, 3)),
+    ("11.1.2. Modelo de sincronización y concurrencia", (290, 3)),
+    ("11.1.3. Métrica de rendimiento en tiempo real", (295, 3)),
+    ("11.2. Sistemas distribuidos", (310, 2))
+]
 
 def cargar_indice()
