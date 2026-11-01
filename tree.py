@@ -1,6 +1,9 @@
 from typing import Any, Optional
 
-from queue_ import Queue
+from queue import Queue
+from heap import HeapMin
+
+
 class Node():
 
     def __init__(self, value=None, other_values=None):
@@ -160,7 +163,7 @@ class BinaryTree():
             root = self.simple_rotation(root, False)
         return root
 
-    def inorden(self) -> None:
+    def inorden(self) -> None:# izquierda, nodo, derecha, evalua en sub arboles
         
         def __inorden(root):
             if root.left is not None:
@@ -174,18 +177,21 @@ class BinaryTree():
 
         __inorden(self.root)
     
-    def postorden(self) -> None:
+    def postorden(self) -> None:# izquierda, derecha, nodo, evalua en sub arboles
         
         def __postorden(root):
+            
+            if root.left is not None:
+                __postorden(root.left)
+            
             if root.right is not None:
                 __postorden(root.right)
             print(root.value)
-            if root.left is not None:
-                __postorden(root.left)
+            
 
         __postorden(self.root)
 
-    def preorden(self) -> None:
+    def preorden(self) -> None:#empieza por el root va a la izquierda y despues a la derecha
         def __preorden(root):
             print(root.value)
             if root.left is not None:
@@ -195,7 +201,7 @@ class BinaryTree():
 
         __preorden(self.root)
 
-    def by_level(self) -> None:
+    def by_level(self) -> None:#saber el nivel de cada nodo, recorre por niveles, primero el root y despues los hijos
 
         pendings = Queue()
 

@@ -60,7 +60,7 @@ class HeapMax():
 
         return result
 
-    def convert_to_heap(self) -> None:
+    def convert_to_heap(self) -> None: 
         for i in range(len(self.elements)):
             self.float(i)
 

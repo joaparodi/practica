@@ -1,7 +1,8 @@
-from tree1 import BinaryTree
+from heap import HeapMin
+from tree import BinaryTree
 from random import randint
 from queue import Queue
-from tree1 import Node
+from tree import Node
 
 # 1. Desarrollar un algoritmo que permita cargar 1000 número enteros –generados de manera aleatoria– que resuelva las siguientes actividades:
 # a. realizar los barridos preorden, inorden, postorden y por nivel sobre el árbol generado;
@@ -164,28 +165,54 @@ from tree1 import Node
 # # b. resolver la expresión matemática y muestre el resultado.
 
 arbol = BinaryTree()
-cola = Queue()
+cola = HeapMin()
 
 
-exp_matematica = input("Ingrese una expresión matemática (ejemplo: 3+5*2): ")
-
-def cargar_expresion(arbol: BinaryTree, cola: Queue, exp_matematica: str):
-    # 2. Convertir y encolar
-    for i in range(len(exp_matematica)):
-        caracter = exp_matematica[i]
-        if caracter != " ":
-            # Si es un número lo convierte a entero, si es un operador lo deja como string
-            if caracter.isdigit():
-                cola.arrive(int(caracter))
-            else:
-                cola.arrive(caracter)
+def cargar_arbol_expresion(exp_matematica):
+    # 1. Convertir la expresión infija (ej: "3+5*2") a postfija de forma simple
+    salida = []
+    pila_ops = []
+    
+    for c in exp_matematica:
+        if c == " ":
+            continue
+        if c.isdigit():
+            salida.append(c)
+        else:
+            # Si es operador, maneja la jerarquía básica (* / antes que + -)
+            while pila_ops and pila_ops[-1] in "*/" and c in "+-":
+                salida.append(pila_ops.pop())
+            pila_ops.append(c)
             
-    # 3. Desencolar e insertar en el árbol
-    while cola.size() > 0:
-        arbol.insert_node_expresion(cola.attention(), None)
+    while pila_ops:
+        salida.append(pila_ops.pop())
 
-# --- EJECUCIÓN Y BARRIDOS ---
-cargar_expresion(arbol, cola, exp_matematica)
+    # 2. Construir el árbol usando una pila de nodos
+    pila_nodos = []
+    
+    for token in salida:
+        # Creamos el nodo (reemplazá 'Node' por la clase de nodo que uses en tu TP)
+        nodo = Node(token) 
+        
+        if token.isdigit():
+            pila_nodos.append(nodo)
+        else:
+            # Si es operador, saca los dos últimos nodos para armar la sub-rama
+            nodo.right = pila_nodos.pop()
+            nodo.left = pila_nodos.pop()
+            pila_nodos.append(nodo)
+            
+    # 3. Asignar la raíz del árbol
+    arbol = BinaryTree()
+    if pila_nodos:
+        arbol.root = pila_nodos[0]
+        
+    return arbol
+
+# --- EJECUCIÓN ---
+exp_matematica = input("Ingrese una expresión matemática (ejemplo: 3+5*2): ")
+arbol = cargar_arbol_expresion(exp_matematica)
+
 
 print("\npreorden:")
 arbol.preorden()
@@ -232,3 +259,20 @@ def resolver_por_inorden(arbol: BinaryTree):
 resultado = resolver_por_inorden(arbol)
 print(f"b. Resultado: {resultado}")
 
+
+
+# 3. Desarrollar un algoritmo que permita cargar el índice del libro Ingeniería de Software de Ian Summerville de manera automática desde un archivo de texto, transformando el árbol n-ario
+# del índice en un árbol binario no balanceado mediante el uso de la transformada de Knuth,
+# para resolver las siguientes actividades:
+# a. listar el índice en su orden original;
+# b. mostrar la parte del índice correspondiente al subtitulo “Diseño de software
+# de tiempo real”;
+# c. deberá almacenar además del texto de índice la página del libro donde está dicho tema;
+# d. determinar cuántos capítulos tiene;
+# e. determinar todos los temas que contengan las palabras modelo y métrica.
+
+
+
+
+
+def cargar_indice()
