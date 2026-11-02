@@ -412,24 +412,6 @@ cargar_aristas(grafo, aristas_completo)
 # grafo.amplitude_show("Arch")
 
 
-# H
-
-g_no_dirigido = Graph(is_dir=False)
-
-def carga(g_no_dirigido: Graph , vertices):
-    for nom , tip in vertices.items():
-        g_no_dirigido.add_vertex(nom , tip)
-
-carga(g_no_dirigido, vertices)
-
-def cargar_aristas(g_no_dirigido: Graph, aristas_completo):
-    for origen, destino, peso in aristas_completo:
-        g_no_dirigido.add_edge(peso, origen, destino)
-
-cargar_aristas(g_no_dirigido, aristas_completo)
-
-
-g_no_dirigido.show()
 
 
 
