@@ -118,7 +118,7 @@ class Graph(List):
         
         _deep_show(origin)
 
-    def amplitude_show(self, origin) -> None:#hace un barrido ampio
+    def amplitude_show(self, origin) -> None:#hace un barrido amplio
         for vertex in self:
             vertex.visited = False
     
@@ -143,7 +143,7 @@ class Graph(List):
                             pos_next_vertex = self.search(edge.destination, 'value')
                             pending_queue.arrive(self[pos_next_vertex])
 
-    def dijkstra(self, origin):
+    def dijkstra(self, origin):#caminos minimos // busca el camino mas corto desde un nodo a todos los demas
         from math import inf
         
         no_visited = HeapMin()
@@ -172,7 +172,10 @@ class Graph(List):
         return path                    
 
 
-    def kruskal(self, origin_vertex):#expansion minima
+    
+
+    def kruskal(self, origin_vertex):#expansion minima // busca la arista de menor peso y va uniendo los vertices hasta que todos esten unidos
+       
         def search_in_forest(forest, value):
             for index, tree in enumerate(forest):
                 if value in tree:
@@ -217,7 +220,11 @@ class Graph(List):
         return forest[from_vertex] if from_vertex is not None else forest
 
 
-    def exist_path(self, origin, destination):
+    def exist_path(self, origin, destination): #verifica si existe un camino entre dos vertices, si existe devuelve True sino False
+        
+        for vertex in self:
+            vertex.visited = False
+        
         def __exist_path(graph, origin, destination):
             result = False
             vertex_pos = graph.search(origin, 'value')
@@ -234,9 +241,6 @@ class Graph(List):
                                 if result:
                                     break
             return result
-
-        for vertex in self:
-            vertex.visited = False
 
         result = __exist_path(self, origin, destination)
         return result
@@ -297,9 +301,8 @@ class Graph(List):
     
     #c
     def nodos_mayor_aristas_llegada(self):
-        max_aristas = 0
         nodos_max = []
-    
+        max_aristas = 0
         for vertice in self:
             contador = 0
             # Buscamos en todo el grafo cuántas veces apunta hacia este vértice
@@ -307,6 +310,7 @@ class Graph(List):
                 for edge in v.edges:
                     if edge.destination == vertice.value:
                         contador += 1
+                        
         
             # Aplicamos exactamente tu misma lógica de comparación
             if contador > max_aristas:
@@ -315,7 +319,7 @@ class Graph(List):
             elif contador == max_aristas:
                 nodos_max.append(vertice.value)
             
-        return nodos_max, max_aristas
+        return nodos_max
     
     #D
     

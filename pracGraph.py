@@ -1,6 +1,10 @@
+
+from heap import HeapMin
 from graph import Graph
 from random import randint
 from list_ import List
+from stack import Stack
+from queue import Queue
 
 # ejercicio de practica
 
@@ -220,41 +224,230 @@ def cargar_grafo_aris(grafo : Graph , oringin : list  , edges : list):
 
 cargar_grafo_aris(grafo,oringin,edges)
 
-grafo.show()
+# grafo.show()
 
-print()
+# print()
 
-# B
-grafo.deep_show("Puerto Madero")
+# # B
+# grafo.deep_show("Puerto Madero")
 
-print()
+# print()
 
-# C
+# # C
 
-exist_path = grafo.exist_path('Puerto Madero', 'Puerto de Rodas')
+# exist_path = grafo.exist_path('Puerto Madero', 'Puerto de Rodas')
 
-if exist_path:
-    paths = grafo.dijkstra('Puerto Madero')#lugar del que parto
+# if exist_path:
+#     paths = grafo.dijkstra('Puerto Madero')#lugar del que parto
 
-    destination = 'Puerto de Rodas'#lugar al que quiero llegar
+#     destination = 'Puerto de Rodas'#lugar al que quiero llegar
 
-    peso_total = None
+#     peso_total = None
 
-    camino_completo = []
+#     camino_completo = []
 
-    while paths.size() > 0:
-        value = paths.pop()
-        if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
-            if peso_total is None:
-                peso_total = value[1]  # Guarda el peso total acumulado
-            camino_completo.append(value[0])  # Agrega el nodo al camino
-            destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
-    camino_completo.reverse()
-    print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
+#     while paths.size() > 0:
+#         value = paths.pop()
+#         if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
+#             if peso_total is None:
+#                 peso_total = value[1]  # Guarda el peso total acumulado
+#             camino_completo.append(value[0])  # Agrega el nodo al camino
+#             destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
+#     camino_completo.reverse()
+#     print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
 
 
 
 # D
+
+# aristas_max_llegada = grafo.nodos_mayor_aristas_llegada()
+
+# if len(aristas_max_llegada) > 0:
+#     print(f"Los nodos con mayor cantidad de aristas de llegada son: {aristas_max_llegada}")
+    
+#     # Eliminamos cada uno de los nodos
+#     for nodo in aristas_max_llegada:
+#         grafo.delete_vertex(nodo)
+        
+#     # Mensaje de confirmación fuera de condiciones innecesarias
+#     print("Se eliminaron los vértices correctamente.") 
+# else:
+#     print("No hay nodos con aristas de llegada.")
+    
+
+
+
+# 5. Cargar el esquema de red de la siguiente figura en un grafo e implementar los algoritmos necesarios para resolver las tareas, listadas a continuación:
+
+# a. cada nodo además del nombre del equipo deberá almacenar su tipo: pc, notebook, servidor, router, switch, impresora;
+# b. realizar un barrido en profundidad y amplitud partiendo desde la tres notebook:Red Hat, Debian, Arch;
+# c. encontrar el camino más corto para enviar a imprimir un documento desde la pc: Manjaro,Red Hat, Fedora hasta la impresora;
+# d. encontrar el árbol de expansión mínima;
+# e. determinar desde que pc (no notebook) es el camino más corto hasta el servidor “Guaraní”;
+# f. indicar desde que computadora del switch 01 es el camino más corto al servidor “MongoDB”;
+# g. cambiar la conexión de la impresora al router 02 y vuelva a resolver el punto b;
+# h. debe utilizar un grafo no dirigido.
+
+grafo = Graph(is_dir=True)
+
+
+vertices = {
+    # Routers
+    "Router 1": "router",
+    "Router 2": "router",
+    "Router 3": "router",
+    
+    # Switches
+    "Switch 1": "switch",
+    "Switch 2": "switch",
+    
+    # Servidores
+    "Guaraní": "servidor",
+    "MongoDB": "servidor",
+    
+    # Impresora
+    "Impresora": "impresora",
+    
+    # Notebooks (triángulos azules)
+    "Red Hat": "notebook",
+    "Debian": "notebook",
+    "Arch": "notebook",
+    
+    # PCs (cuadrados amarillos)
+    "Ubuntu": "pc",
+    "Mint": "pc",
+    "Manjaro": "pc",
+    "Fedora": "pc",
+    "Parrot": "pc"
+}
+
+aristas_completo = [
+    # Router 2
+    ("Router 2", "Red Hat", 25),
+    ("Router 2", "Guaraní", 9),
+    ("Router 2", "Router 3", 50),
+    ("Router 2", "Router 1", 37),
+    
+    # Router 1
+    ("Router 1", "Router 3", 43),
+    ("Router 1", "Switch 1", 29),
+    
+    # Switch 1 y sus dispositivos
+    ("Switch 1", "Debian", 17),
+    ("Switch 1", "Ubuntu", 18),
+    ("Switch 1", "Impresora", 22),
+    ("Switch 1", "Mint", 80),
+    
+    # Router 3 hacia Switch 2
+    ("Router 3", "Switch 2", 61),
+    
+    # Switch 2 y sus dispositivos / conexiones
+    ("Switch 2", "Manjaro", 40),
+    ("Switch 2", "Fedora", 3),
+    ("Switch 2", "Parrot", 12),
+    ("Switch 2", "MongoDB", 5),
+    ("Switch 2", "Arch", 56)
+]
+
+# A
+def cargar_grafo(grafo: Graph, vertices):
+    for nombre, tipo in vertices.items():
+        grafo.add_vertex(nombre, tipo)
+
+
+cargar_grafo(grafo, vertices)
+
+def cargar_aristas(grafo: Graph, aristas_completo):
+    for origen, destino, peso in aristas_completo:
+        grafo.add_edge(peso, origen, destino)
+
+cargar_aristas(grafo, aristas_completo)
+
+grafo.show()
+
+#B
+# print("Barrido en profundidad desde Red Hat:")
+# grafo.deep_show("Red Hat")
+# print("\nBarrido en profundidad desde Debian:")
+# grafo.deep_show("Debian")
+
+# print("\nBarrido en profundidad desde Arch:")
+# grafo.deep_show("Arch") 
+# print("\nBarrido en amplitud desde Red Hat:")
+# grafo.amplitude_show("Red Hat")
+
+# print("\nBarrido en amplitud desde Debian:")
+# grafo.amplitude_show("Debian")  
+# print("\nBarrido en amplitud desde Arch:")
+# grafo.amplitude_show("Arch")
+
+
+
+
+# C //desde la pc: Manjaro,Red Hat, Fedora hasta la impresora;
+
+def resolver_camino_impresora(grafo, origen):
+    destino = 'Impresora'
+    paths = grafo.dijkstra(origen)
+    
+    peso_total = None
+    camino_completo = []
+    actual = destino
+    
+    while paths.size() > 0:
+        value = paths.pop()
+        if value[0] == actual:
+            if peso_total is None:
+                peso_total = value[1]  # Guarda el costo acumulado total
+            camino_completo.append(value[0])
+            actual = value[2]  # Retrocede al nodo anterior (padre)
+            
+    if peso_total is not None and peso_total != float('inf'):
+        camino_completo.reverse()
+        print(f"El camino más corto desde {origen} es: {' - '.join(camino_completo)} con un costo de {peso_total}")
+    else:
+        print(f"No existe un camino posible desde {origen} hasta {destino}.")
+
+# --- EJECUCIÓN DIRECTA DEL PUNTO C ---
+print("\nCaminos más cortos hasta la impresora:")
+resolver_camino_impresora(grafo, 'Manjaro')
+resolver_camino_impresora(grafo, 'Red Hat')
+resolver_camino_impresora(grafo, 'Fedora')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
