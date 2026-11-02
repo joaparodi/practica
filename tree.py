@@ -11,7 +11,7 @@ class Node():
         self.left = None
         self.right = None
         self.other_values = other_values
-        self.height = 0
+        self.height = 0 #altura del nodo, se inicializa en 0 para un nodo hoja
     
     def __str__(self):
         return self.value
