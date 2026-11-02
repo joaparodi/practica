@@ -163,7 +163,7 @@ class BinaryTree():
             root = self.simple_rotation(root, False)
         return root
 
-    def inorden(self) -> None:# izquierda, nodo, derecha, evalua en sub arboles
+    def inorden(self) -> None:# izquierda, nodo, derecha, evalua en sub arboles // datos de forma ascendente, primero los mas chicos y despues los mas grandes
         
         def __inorden(root):
             if root.left is not None:
@@ -177,16 +177,18 @@ class BinaryTree():
 
         __inorden(self.root)
     
-    def postorden(self) -> None:# izquierda, derecha, nodo, evalua en sub arboles
+    def postorden(self) -> None:# izquierda, derecha, nodo, evalua en sub arboles  // ordena de manera decedente, primero los mas grandes y despues los mas chicos
         
         def __postorden(root):
+            if root is None:
+                
             
-            if root.left is not None:
-                __postorden(root.left)
+                if root.left is not None:
+                    __postorden(root.left)
             
-            if root.right is not None:
-                __postorden(root.right)
-            print(root.value)
+                if root.right is not None:
+                    __postorden(root.right)
+                print(root.value)
             
 
         __postorden(self.root)

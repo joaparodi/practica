@@ -419,43 +419,224 @@ cargar_superheroes(a_superheroes , Superheroes)
 # a_superheroes.preorden()  # Listar todos los superhéroes y villanos en preorden
 
 #B
-def listar_villanos(a_superheroes : BinaryTree):
-    def __listar_villanos(root):
+# def listar_villanos(a_superheroes : BinaryTree):
+#     def __listar_villanos(root):
+#         if root is not None:
+#             # 1. Ir a la izquierda
+#             if root.left is not None:
+#                 __listar_villanos(root.left)
+#             # 2. Procesar el nodo actual (Verificar si es villano: house == "Villain")
+#             if root.other_values is not None:
+#                 if root.other_values['is_villain'] == True:
+#                     print(root.value)  # Imprimimos el nombre del villano
+            
+#             # 3. Ir a la derecha
+#             if root.right is not None:
+#                 __listar_villanos(root.right)
+                
+#     if a_superheroes.root is not None:
+#         __listar_villanos(a_superheroes.root)
+    
+
+# listar_villanos(a_superheroes) # Listar todos los villanos ordenados alfabéticamente
+
+
+
+# C 
+
+# def buscar_por_inicial(a_superheroes : BinaryTree, inicial):
+
+#     def __buscar(root , inicial):
+#         if root.left is not None:
+#             __buscar(root.left, inicial)
+#         if root.value.lower().startswith(inicial.lower()) and root.other_values['is_villain'] == False:
+#             print(root.value)
+#         if root.right is not None:
+#             __buscar(root.right, inicial)
+        
+    # __buscar(a_superheroes.root, inicial)
+
+# buscar_por_inicial(a_superheroes, "C")
+
+
+# D
+
+# def contar_superheroes(a_superheroes : BinaryTree) -> int:
+    
+    
+#     def __contar(root):
+#         contador = 0
+#         if root is not None:
+#             # 1. Ir a la izquierda
+#             if root.left is not None:
+#                 contador += __contar(root.left)
+            
+#             # 2. Procesar el nodo actual (Verificar si es superhéroe: house == "Hero")
+#             if root.other_values is not None:
+#                 if root.other_values['is_villain'] == False:
+#                     contador += 1  # Incrementamos el contador
+            
+#             # 3. Ir a la derecha
+#             if root.right is not None:
+#                 contador += __contar(root.right)
+
+#             return contador
+        
+#     contador = __contar(a_superheroes.root)
+#     return contador
+    
+# aux = contar_superheroes(a_superheroes)
+
+# if aux > 0:
+#     print(f"Cantidad de superhéroes en el árbol: {aux}")
+# else:
+#     print("No se encontraron superhéroes en el árbol.")
+
+
+
+# D
+
+# def bus_proxy(a_superheroes : BinaryTree ,nombre_a_buscar):
+#     def __bus_proxy(root):
+#         if root is not None:
+#             # 1. Ir a la izquierda
+#             if root.left is not None:
+#                 __bus_proxy(root.left)
+            
+#             # 2. Procesar el nodo actual (Verificar si es superhéroe: house == "Hero")
+#             if root.other_values is not None:
+#                 if nombre_a_buscar.lower() in root.value.lower():
+#                     print(root.value)
+            
+#             # 3. Ir a la derecha
+#             if root.right is not None:
+#                 __bus_proxy(root.right)
+
+#     __bus_proxy(a_superheroes.root)
+
+
+# buscado = input("Ingrese el nombre a buscar: ")
+
+# bus_proxy(a_superheroes, buscado)
+
+# modificar = input("Desea modificar el nombre del superhéroe encontrado? (s/n): ")
+
+# node = a_superheroes.search(modificar)
+# if node is not None:
+#     new_name = input('ingrese el nuevo nombre: ')
+#     delete_value, delete_other_value = a_superheroes.delete_node(node.value)
+#     delete_other_value['name'] = new_name
+#     a_superheroes.insert_node(new_name, delete_other_value)
+    
+
+
+# F
+
+# def inor_hero(a_superheroes : BinaryTree):
+#     def __inor_hero(root):
+#         if root is not None:
+            
+#             if root.right is not None:
+#                 __inor_hero(root.right)
+#             if root.other_values is not None:
+#                 if root.other_values['is_villain'] == False:
+#                     print(root.value)
+        
+#             if root.left is not None:
+#                 __inor_hero(root.left)
+
+            
+    
+#     if a_superheroes.root is not None:
+#         __inor_hero(a_superheroes.root)
+
+
+
+# inor_hero(a_superheroes)
+
+
+
+# G
+
+
+a_villanos = BinaryTree()
+a_heroes = BinaryTree()
+
+def generar_bosque(a_superheroes : BinaryTree , a_villanos : BinaryTree , a_heroes : BinaryTree):
+    def __generar_bosque(root):
         if root is not None:
             # 1. Ir a la izquierda
             if root.left is not None:
-                __listar_villanos(root.left)
-            # 2. Procesar el nodo actual (Verificar si es villano: house == "Villain")
+                __generar_bosque(root.left)
+            
+            # 2. Procesar el nodo actual (Verificar si es villano o héroe)
             if root.other_values is not None:
                 if root.other_values['is_villain'] == True:
-                    print(root.value)  # Imprimimos el nombre del villano
+                    a_villanos.insert_node(root.value, root.other_values)
+                else:
+                    a_heroes.insert_node(root.value, root.other_values)
             
             # 3. Ir a la derecha
             if root.right is not None:
-                __listar_villanos(root.right)
-                
+                __generar_bosque(root.right)
+
     if a_superheroes.root is not None:
-        __listar_villanos(a_superheroes.root)
+        __generar_bosque(a_superheroes.root)
+
+generar_bosque(a_superheroes, a_villanos, a_heroes)
+
+a_villanos.preorden()  # Listar todos los villanos en preorden
+print()
+a_heroes.preorden()  # Listar todos los héroes en preorden
+
+
+# I
+
+def contar_nodos(a : BinaryTree) -> int:
     
+    def __contar_nodos(root):
+        contador = 0
+        if root is not None:
+            # 1. Ir a la izquierda
+            if root.left is not None:
+               contador += __contar_nodos(root.left)
+            
+            # 2. Contar el nodo actual
+            contador += 1
+            
+            # 3. Ir a la derecha
+            if root.right is not None:
+                contador += __contar_nodos(root.right)
 
-listar_villanos(a_superheroes) # Listar todos los villanos ordenados alfabéticamente
+            return contador
+    
+    contador = __contar_nodos(a.root)
+    return contador
+
+aux_villanos = contar_nodos(a_villanos)
+aux_heroes = contar_nodos(a_heroes) 
+
+if aux_villanos > 0:
+    print(f"Cantidad de villanos en el árbol: {aux_villanos}")
+else:
+    print("No se encontraron villanos en el árbol.")
+    
+if aux_heroes > 0:
+    print(f"Cantidad de héroes en el árbol: {aux_heroes}")  
+else:
+    print("No se encontraron héroes en el árbol.")
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# II
+print()
+print("Villanos ordenados alfabéticamente:")
+a_villanos.inorden()  # Listar todos los villanos ordenados alfabéticamente
+print()
+print("Héroes ordenados alfabéticamente:")
+a_heroes.inorden()  # Listar todos los héroes ordenados alfabéticamente
+print()
 
 
 
