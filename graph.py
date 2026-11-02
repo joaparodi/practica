@@ -167,11 +167,12 @@ class Graph(List):
                 if pos is not None:
                     if costo_nodo_actual + edge.weight < no_visited.elements[pos][0]:
                         no_visited.elements[pos][1][2] = vertex[1][0]
-                        no_visited.elements[pos][0] = costo_nodo_actual + edge.weight
+                        # no_visited.elements[pos][0] = costo_nodo_actual + edge.weight
                         no_visited.change_priority(pos, costo_nodo_actual + edge.weight)
         return path                    
 
 
+    
     
 
     def kruskal(self, origin_vertex):#expansion minima // busca la arista de menor peso y va uniendo los vertices hasta que todos esten unidos
@@ -188,9 +189,9 @@ class Graph(List):
             for edge in vertex.edges:
                 edges.arrive([vertex.value, edge.destination], edge.weight)#value es el origen
 
-        print(forest)
-        for element in edges.elements:
-            print(element )
+        # print(forest)
+        # for element in edges.elements:
+        #     print(element )
         
         while len(forest) > 1 and edges.size() > 0:
             edge = edges.attention()# devuelve el primero de la tabla
@@ -244,6 +245,150 @@ class Graph(List):
 
         result = __exist_path(self, origin, destination)
         return result
+
+    def devolver_camino(self, origen, destino):
+    
+        exist_path = self.exist_path(origen, destino)
+
+        if exist_path:
+            paths = self.dijkstra(origen)#lugar del que parto
+
+            destination = destino#lugar al que quiero llegar
+
+            peso_total = None
+
+            camino_completo = []
+
+            while paths.size() > 0:
+                value = paths.pop()
+                if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
+                    if peso_total is None:
+                        peso_total = value[1]  # Guarda el peso total acumulado
+                    camino_completo.append(value[0])  # Agrega el nodo al camino
+                    destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
+            camino_completo.reverse()
+            print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
+
+    def espansion_min(self,origin):
+        min_tree = self.kruskal(origin)
+
+        print(min_tree)
+        peso_total = 0
+        for edge in min_tree.split(';'):
+            origin, destination, weight = edge.split('-')
+            print(f'origin {origin} destination {destination}')
+            peso_total += int(weight)
+        print(f'peso total: {peso_total}')
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # ejercicio de practica punto 1
     

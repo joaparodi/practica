@@ -235,27 +235,7 @@ cargar_grafo_aris(grafo,oringin,edges)
 
 # # C
 
-# exist_path = grafo.exist_path('Puerto Madero', 'Puerto de Rodas')
-
-# if exist_path:
-#     paths = grafo.dijkstra('Puerto Madero')#lugar del que parto
-
-#     destination = 'Puerto de Rodas'#lugar al que quiero llegar
-
-#     peso_total = None
-
-#     camino_completo = []
-
-#     while paths.size() > 0:
-#         value = paths.pop()
-#         if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
-#             if peso_total is None:
-#                 peso_total = value[1]  # Guarda el peso total acumulado
-#             camino_completo.append(value[0])  # Agrega el nodo al camino
-#             destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
-#     camino_completo.reverse()
-#     print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
-
+# grafo.devolver_camino("Puerto Madero", "Puerto de Rodas")
 
 
 # D
@@ -302,7 +282,7 @@ vertices = {
     "Switch 2": "switch",
     
     # Servidores
-    "Guaraní": "servidor",
+    "Guarani": "servidor",
     "MongoDB": "servidor",
     
     # Impresora
@@ -324,7 +304,7 @@ vertices = {
 aristas_completo = [
     # Router 2
     ("Router 2", "Red Hat", 25),
-    ("Router 2", "Guaraní", 9),
+    ("Router 2", "Guarani", 9),
     ("Router 2", "Router 3", 50),
     ("Router 2", "Router 1", 37),
     
@@ -346,13 +326,14 @@ aristas_completo = [
     ("Switch 2", "Fedora", 3),
     ("Switch 2", "Parrot", 12),
     ("Switch 2", "MongoDB", 5),
+   
     ("Switch 2", "Arch", 56)
 ]
 
 # A
 def cargar_grafo(grafo: Graph, vertices):
     for nombre, tipo in vertices.items():
-        grafo.add_vertex(nombre, tipo)
+        grafo.add_vertex(nombre , tipo)
 
 
 cargar_grafo(grafo, vertices)
@@ -363,7 +344,7 @@ def cargar_aristas(grafo: Graph, aristas_completo):
 
 cargar_aristas(grafo, aristas_completo)
 
-grafo.show()
+# grafo.show()
 
 #B
 # print("Barrido en profundidad desde Red Hat:")
@@ -385,47 +366,70 @@ grafo.show()
 
 
 # C //desde la pc: Manjaro,Red Hat, Fedora hasta la impresora;
-
-def resolver_camino_impresora(grafo, origen):
-    destino = 'Impresora'
-    paths = grafo.dijkstra(origen)
     
-    peso_total = None
-    camino_completo = []
-    actual = destino
-    
-    while paths.size() > 0:
-        value = paths.pop()
-        if value[0] == actual:
-            if peso_total is None:
-                peso_total = value[1]  # Guarda el costo acumulado total
-            camino_completo.append(value[0])
-            actual = value[2]  # Retrocede al nodo anterior (padre)
-            
-    if peso_total is not None and peso_total != float('inf'):
-        camino_completo.reverse()
-        print(f"El camino más corto desde {origen} es: {' - '.join(camino_completo)} con un costo de {peso_total}")
-    else:
-        print(f"No existe un camino posible desde {origen} hasta {destino}.")
 
 # --- EJECUCIÓN DIRECTA DEL PUNTO C ---
-print("\nCaminos más cortos hasta la impresora:")
-resolver_camino_impresora(grafo, 'Manjaro')
-resolver_camino_impresora(grafo, 'Red Hat')
-resolver_camino_impresora(grafo, 'Fedora')
+# print("\nCaminos más cortos hasta la impresora:")
+
+# grafo.devolver_camino("Red Hat","Impresora")
+# grafo.devolver_camino("Manjaro","Impresora")
+# grafo.devolver_camino("Fedora","Impresora")
 
 
+# D
+
+# grafo.espansion_min("Impresora")
+
+# E
+
+# grafo.devolver_camino("Manjaro","Guarani")
 
 
+# F
+
+# grafo.devolver_camino("Switch 1","MongoDB")
+
+# G
+
+# grafo.delete_edge('Switch 1', 'Impresora')
+# grafo.add_edge(6, 'Router 2', 'Impresora')
+# print()
 
 
+# print("Barrido en profundidad desde Red Hat:")
+# grafo.deep_show("Red Hat")
+# print("\nBarrido en profundidad desde Debian:")
+# grafo.deep_show("Debian")
+
+# print("\nBarrido en profundidad desde Arch:")
+# grafo.deep_show("Arch") 
+# print("\nBarrido en amplitud desde Red Hat:")
+# grafo.amplitude_show("Red Hat")
+
+# print("\nBarrido en amplitud desde Debian:")
+# grafo.amplitude_show("Debian")  
+# print("\nBarrido en amplitud desde Arch:")
+# grafo.amplitude_show("Arch")
 
 
+# H
+
+g_no_dirigido = Graph(is_dir=False)
+
+def carga(g_no_dirigido: Graph , vertices):
+    for nom , tip in vertices.items():
+        g_no_dirigido.add_vertex(nom , tip)
+
+carga(g_no_dirigido, vertices)
+
+def cargar_aristas(g_no_dirigido: Graph, aristas_completo):
+    for origen, destino, peso in aristas_completo:
+        g_no_dirigido.add_edge(peso, origen, destino)
+
+cargar_aristas(g_no_dirigido, aristas_completo)
 
 
-
-
-
+g_no_dirigido.show()
 
 
 
