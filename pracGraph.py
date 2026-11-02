@@ -268,81 +268,81 @@ cargar_grafo_aris(grafo,oringin,edges)
 # g. cambiar la conexión de la impresora al router 02 y vuelva a resolver el punto b;
 # h. debe utilizar un grafo no dirigido.
 
-grafo = Graph(is_dir=True)
+# grafo = Graph(is_dir=False)# H
 
 
-vertices = {
-    # Routers
-    "Router 1": "router",
-    "Router 2": "router",
-    "Router 3": "router",
+# vertices = {
+#     # Routers
+#     "Router 1": "router",
+#     "Router 2": "router",
+#     "Router 3": "router",
     
-    # Switches
-    "Switch 1": "switch",
-    "Switch 2": "switch",
+#     # Switches
+#     "Switch 1": "switch",
+#     "Switch 2": "switch",
     
-    # Servidores
-    "Guarani": "servidor",
-    "MongoDB": "servidor",
+#     # Servidores
+#     "Guarani": "servidor",
+#     "MongoDB": "servidor",
     
-    # Impresora
-    "Impresora": "impresora",
+#     # Impresora
+#     "Impresora": "impresora",
     
-    # Notebooks (triángulos azules)
-    "Red Hat": "notebook",
-    "Debian": "notebook",
-    "Arch": "notebook",
+#     # Notebooks (triángulos azules)
+#     "Red Hat": "notebook",
+#     "Debian": "notebook",
+#     "Arch": "notebook",
     
-    # PCs (cuadrados amarillos)
-    "Ubuntu": "pc",
-    "Mint": "pc",
-    "Manjaro": "pc",
-    "Fedora": "pc",
-    "Parrot": "pc"
-}
+#     # PCs (cuadrados amarillos)
+#     "Ubuntu": "pc",
+#     "Mint": "pc",
+#     "Manjaro": "pc",
+#     "Fedora": "pc",
+#     "Parrot": "pc"
+# }
 
-aristas_completo = [
-    # Router 2
-    ("Router 2", "Red Hat", 25),
-    ("Router 2", "Guarani", 9),
-    ("Router 2", "Router 3", 50),
-    ("Router 2", "Router 1", 37),
+# aristas_completo = [
+#     # Router 2
+#     ("Router 2", "Red Hat", 25),
+#     ("Router 2", "Guarani", 9),
+#     ("Router 2", "Router 3", 50),
+#     ("Router 2", "Router 1", 37),
     
-    # Router 1
-    ("Router 1", "Router 3", 43),
-    ("Router 1", "Switch 1", 29),
+#     # Router 1
+#     ("Router 1", "Router 3", 43),
+#     ("Router 1", "Switch 1", 29),
     
-    # Switch 1 y sus dispositivos
-    ("Switch 1", "Debian", 17),
-    ("Switch 1", "Ubuntu", 18),
-    ("Switch 1", "Impresora", 22),
-    ("Switch 1", "Mint", 80),
+#     # Switch 1 y sus dispositivos
+#     ("Switch 1", "Debian", 17),
+#     ("Switch 1", "Ubuntu", 18),
+#     ("Switch 1", "Impresora", 22),
+#     ("Switch 1", "Mint", 80),
     
-    # Router 3 hacia Switch 2
-    ("Router 3", "Switch 2", 61),
+#     # Router 3 hacia Switch 2
+#     ("Router 3", "Switch 2", 61),
     
-    # Switch 2 y sus dispositivos / conexiones
-    ("Switch 2", "Manjaro", 40),
-    ("Switch 2", "Fedora", 3),
-    ("Switch 2", "Parrot", 12),
-    ("Switch 2", "MongoDB", 5),
+#     # Switch 2 y sus dispositivos / conexiones
+#     ("Switch 2", "Manjaro", 40),
+#     ("Switch 2", "Fedora", 3),
+#     ("Switch 2", "Parrot", 12),
+#     ("Switch 2", "MongoDB", 5),
    
-    ("Switch 2", "Arch", 56)
-]
+#     ("Switch 2", "Arch", 56)
+# ]
 
-# A
-def cargar_grafo(grafo: Graph, vertices):
-    for nombre, tipo in vertices.items():
-        grafo.add_vertex(nombre , tipo)
+# # A
+# def cargar_grafo(grafo: Graph, vertices):
+#     for nombre, tipo in vertices.items():
+#         grafo.add_vertex(nombre , tipo)
 
 
-cargar_grafo(grafo, vertices)
+# cargar_grafo(grafo, vertices)
 
-def cargar_aristas(grafo: Graph, aristas_completo):
-    for origen, destino, peso in aristas_completo:
-        grafo.add_edge(peso, origen, destino)
+# def cargar_aristas(grafo: Graph, aristas_completo):
+#     for origen, destino, peso in aristas_completo:
+#         grafo.add_edge(peso, origen, destino)
 
-cargar_aristas(grafo, aristas_completo)
+# cargar_aristas(grafo, aristas_completo)
 
 # grafo.show()
 
@@ -412,8 +412,8 @@ cargar_aristas(grafo, aristas_completo)
 # grafo.amplitude_show("Arch")
 
 
-# 14. Implementar sobre un grafo no dirigido los algoritmos necesario para dar solución a las si-
-# guientes tareas:
+
+# 14. Implementar sobre un grafo no dirigido los algoritmos necesario para dar solución a las siguientes tareas:
 
 # a. cada vértice representar un ambiente de una casa: cocina, comedor, cochera, quincho,
 # baño 1, baño 2, habitación 1, habitación 2, sala de estar, terraza, patio;
@@ -428,6 +428,7 @@ cargar_aristas(grafo, aristas_completo)
 # Smart Tv.
 
 
+
 g = Graph(is_dir = False)
 
 # A
@@ -437,11 +438,13 @@ g.add_vertex("comedor", None)
 g.add_vertex("cochera", None)
 g.add_vertex("baño 1", None)
 g.add_vertex("baño 2", None)
-g.add_vertex("habitacion 1", None)
-g.add_vertex("habitacion 2", None)
+g.add_vertex("habitación 1", None)
+g.add_vertex("habitación 2", None)
 g.add_vertex("sala de estar", None)
 g.add_vertex("terraza", None)
 g.add_vertex("patio", None)
+g.add_vertex("quincho", None)
+
 
 # B
 
@@ -470,7 +473,7 @@ g.add_edge(10, "terraza", "comedor")
 g.add_edge(12, "terraza", "baño 1") 
 g.add_edge(20, "terraza", "patio") 
 g.add_edge(5, "patio", "comedor") 
-g.add_edge(15, "patio", "baño") 
+g.add_edge(15, "patio", "baño 1") 
 g.add_edge(10, "patio", "sala de estar") 
 g.add_edge(5, "sala de estar", "comedor") 
 g.add_edge(15, "sala de estar", "patio") 
@@ -489,10 +492,6 @@ g.add_edge(11, "sala de estar", "baño 1")
 # D
 
 g.devolver_camino("habitación 1","sala de estar")
-
-
-
-
 
 
 

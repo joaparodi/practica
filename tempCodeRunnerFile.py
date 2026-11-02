@@ -1,20 +1,75 @@
-exist_path = grafo.exist_path('Puerto Madero', 'Puerto de Rodas')
+grafo = Graph(is_dir=False)# H
 
-if exist_path:
-    paths = grafo.dijkstra('Puerto Madero')#lugar del que parto
 
-    destination = 'Puerto de Rodas'#lugar al que quiero llegar
+# vertices = {
+#     # Routers
+#     "Router 1": "router",
+#     "Router 2": "router",
+#     "Router 3": "router",
+    
+#     # Switches
+#     "Switch 1": "switch",
+#     "Switch 2": "switch",
+    
+#     # Servidores
+#     "Guarani": "servidor",
+#     "MongoDB": "servidor",
+    
+#     # Impresora
+#     "Impresora": "impresora",
+    
+#     # Notebooks (triángulos azules)
+#     "Red Hat": "notebook",
+#     "Debian": "notebook",
+#     "Arch": "notebook",
+    
+#     # PCs (cuadrados amarillos)
+#     "Ubuntu": "pc",
+#     "Mint": "pc",
+#     "Manjaro": "pc",
+#     "Fedora": "pc",
+#     "Parrot": "pc"
+# }
 
-    peso_total = None
+# aristas_completo = [
+#     # Router 2
+#     ("Router 2", "Red Hat", 25),
+#     ("Router 2", "Guarani", 9),
+#     ("Router 2", "Router 3", 50),
+#     ("Router 2", "Router 1", 37),
+    
+#     # Router 1
+#     ("Router 1", "Router 3", 43),
+#     ("Router 1", "Switch 1", 29),
+    
+#     # Switch 1 y sus dispositivos
+#     ("Switch 1", "Debian", 17),
+#     ("Switch 1", "Ubuntu", 18),
+#     ("Switch 1", "Impresora", 22),
+#     ("Switch 1", "Mint", 80),
+    
+#     # Router 3 hacia Switch 2
+#     ("Router 3", "Switch 2", 61),
+    
+#     # Switch 2 y sus dispositivos / conexiones
+#     ("Switch 2", "Manjaro", 40),
+#     ("Switch 2", "Fedora", 3),
+#     ("Switch 2", "Parrot", 12),
+#     ("Switch 2", "MongoDB", 5),
+   
+#     ("Switch 2", "Arch", 56)
+# ]
 
-    camino_completo = []
+# # A
+# def cargar_grafo(grafo: Graph, vertices):
+#     for nombre, tipo in vertices.items():
+#         grafo.add_vertex(nombre , tipo)
 
-    while paths.size() > 0:
-        value = paths.pop()
-        if value[0] == destination:#evalua hasta llegar y despues vuelve en reversapor el camino
-            if peso_total is None:
-                peso_total = value[1]  # Guarda el peso total acumulado
-            camino_completo.append(value[0])  # Agrega el nodo al camino
-            destination = value[2]  # Actualiza el destino al nodo anterior ("de dónde vino")
-    camino_completo.reverse()
-    print(f'el camino mas corto es: {"-".join(camino_completo)} con un costo de {peso_total}')
+
+# cargar_grafo(grafo, vertices)
+
+# def cargar_aristas(grafo: Graph, aristas_completo):
+#     for origen, destino, peso in aristas_completo:
+#         grafo.add_edge(peso, origen, destino)
+
+# cargar_aristas(grafo, aristas_completo)
