@@ -412,8 +412,83 @@ cargar_aristas(grafo, aristas_completo)
 # grafo.amplitude_show("Arch")
 
 
+# 14. Implementar sobre un grafo no dirigido los algoritmos necesario para dar solución a las si-
+# guientes tareas:
+
+# a. cada vértice representar un ambiente de una casa: cocina, comedor, cochera, quincho,
+# baño 1, baño 2, habitación 1, habitación 2, sala de estar, terraza, patio;
+
+# b. cargar al menos tres aristas a cada vértice, y a dos de estas cárguele cinco, el peso de la aris-
+# ta es la distancia entre los ambientes, se debe cargar en metros;
+
+# c. obtener el árbol de expansión mínima y determine cuantos metros de cables se necesitan
+# para conectar todos los ambientes;
+# d. determinar cuál es el camino más corto desde la habitación 1 hasta la sala de estar para
+# determinar cuántos metros de cable de red se necesitan para conectar el router con el
+# Smart Tv.
 
 
+g = Graph(is_dir = False)
+
+# A
+
+g.add_vertex("cocina", None)
+g.add_vertex("comedor", None)
+g.add_vertex("cochera", None)
+g.add_vertex("baño 1", None)
+g.add_vertex("baño 2", None)
+g.add_vertex("habitacion 1", None)
+g.add_vertex("habitacion 2", None)
+g.add_vertex("sala de estar", None)
+g.add_vertex("terraza", None)
+g.add_vertex("patio", None)
+
+# B
+
+g.add_edge(3, "cocina", "comedor") 
+g.add_edge(32, "cocina", "cochera") 
+g.add_edge(19, "cocina", "quincho") 
+g.add_edge(5, "cocina", "habitación 2") 
+g.add_edge(8, "cocina", "terraza") 
+g.add_edge(2, "comedor", "baño 1") 
+g.add_edge(1, "comedor", "patio") 
+g.add_edge(15, "cochera", "sala de estar") 
+g.add_edge(9, "cochera", "baño 2") 
+g.add_edge(22, "quincho", "habitación 1") 
+g.add_edge(14, "quincho", "terraza") 
+g.add_edge(13, "quincho", "baño 2") 
+g.add_edge(18, "quincho", "baño 1") 
+g.add_edge(24, "habitación 1", "terraza") 
+g.add_edge(29, "habitación 1", "patio") 
+g.add_edge(21, "habitación 2", "sala de estar") 
+g.add_edge(6, "habitación 2", "patio") 
+g.add_edge(11, "baño 1", "sala de estar") 
+g.add_edge(25, "baño 1", "patio") 
+g.add_edge(20, "baño 1", "comedor") 
+g.add_edge(4, "baño 2", "comedor") 
+g.add_edge(10, "terraza", "comedor") 
+g.add_edge(12, "terraza", "baño 1") 
+g.add_edge(20, "terraza", "patio") 
+g.add_edge(5, "patio", "comedor") 
+g.add_edge(15, "patio", "baño") 
+g.add_edge(10, "patio", "sala de estar") 
+g.add_edge(5, "sala de estar", "comedor") 
+g.add_edge(15, "sala de estar", "patio") 
+g.add_edge(11, "sala de estar", "baño 1") 
+
+
+
+#g.show()
+
+# C
+
+#g.espansion_min("patio")
+
+
+
+# D
+
+g.devolver_camino("habitación 1","sala de estar")
 
 
 

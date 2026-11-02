@@ -52,12 +52,12 @@ class Graph(List):
 
         pos_origin = self.search(origin, 'value')
         if pos_origin is None:
-            print('no existe origien')
+            #print('no existe origien')
             return
 
         pos_destination = self.search(destination, 'value')
         if pos_destination is None:
-            print('no existe el destino')
+            #print('no existe el destino')
             return
 
         node_edge = self._nodeEdge(weight, destination)
